@@ -1,6 +1,6 @@
 """
 	NOTE:
-		Making my second game in pygame to learn much more new stuff and to practice once again the known stuff!
+		Added the states to display the winning message!
 """
 
 
@@ -49,7 +49,7 @@ class SpaceShip(pygame.sprite.Sprite):
 
 		self.VELOCITY = 3
 
-		self.image = pygame.transform.rotate(surface, 90 if self.type == "yellow" else -90)
+		self.image = surface
 		self.rect = self.image.get_rect(center = self.position)
 
 	def movement(self):
@@ -92,9 +92,18 @@ class SpaceShip(pygame.sprite.Sprite):
 				self.health -= 1
 				HIT_SOUND.play()
 
-	def update(self, Red_bullets, Yellow_bullets):
-		self.movement()
-		self.checking_collision(Red_bullets, Yellow_bullets)
+	def update(self, Red_bullets, Yellow_bullets, game_state):
+		if game_state == "playing":
+			self.movement()
+			self.checking_collision(Red_bullets, Yellow_bullets)
+		else:
+			self.__init__(self.image, SPAWNING_LOC[0] if self.type == "yellow" else SPAWNING_LOC[1], self.type)
+
+YELLOW_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_yellow.png")), 90), SPAWNING_LOC[0], "yellow")
+YELLOW_SPACESHIP = pygame.sprite.GroupSingle(sprite = YELLOW_SPACESHIP)
+
+RED_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_red.png")), -90), SPAWNING_LOC[1], "red")
+RED_SPACESHIP = pygame.sprite.GroupSingle(sprite = RED_SPACESHIP)
 
 
 # Bullets
@@ -130,6 +139,10 @@ class Bullet(pygame.sprite.Sprite):
 		self.movement()
 
 
+Red_bullets = pygame.sprite.Group()
+Yellow_bullets = pygame.sprite.Group()
+
+
 # BG
 BG = pygame.image.load(os.path.join("Assets", "space.png"))
 BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
@@ -139,44 +152,36 @@ BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
 BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
 
 
-def checking_wining(RED_SPACESHIP, YELLOW_SPACESHIP):
+def draw():
+	# BG
+	screen.blit(BG, (0,0))
+	pygame.draw.rect(screen, BLACK, BORDER)
 
-	wining_text = ""
+	# bullets
+	Yellow_bullets.draw(screen)
+	Red_bullets.draw(screen)
 
-	if RED_SPACESHIP.sprite.health == 0:
-		wining_text = "YELLOW WINS"
+	# healths
+	YELLOW_HEALTH = HEALTH_FONT.render("Health: "+str(YELLOW_SPACESHIP.sprite.health), True, WHITE)
+	RED_HEALTH = HEALTH_FONT.render("Health: "+str(RED_SPACESHIP.sprite.health), True, WHITE)
 
-	elif YELLOW_SPACESHIP.sprite.health == 0:
-		wining_text = "RED WINS"
+	RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
 
-	if wining_text != "":
-		
-		WIN = WIN_FONT.render(wining_text, True, RED if wining_text[0] == "R" else YELLOW)
-		WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2)) 
-		
-		screen.blit(WIN, WIN_RECT)
-		pygame.display.update()
-		
-		pygame.time.delay(5*1000)
-		main()
+	screen.blit(YELLOW_HEALTH, (10, 10))
+	screen.blit(RED_HEALTH, RED_HEALTH_RECT)
+
+	# spaceships
+	RED_SPACESHIP.draw(screen)
+	YELLOW_SPACESHIP.draw(screen)
 
 
 def main():
 
-	# Global vars
+	game_state = "playing" # It carries the winning message when it is != "playing"
+
+	countdown = 20
+
 	run = True
-
-	# Space Ships
-	YELLOW_SPACESHIP = SpaceShip(pygame.image.load(os.path.join("Assets", "spaceship_yellow.png")), SPAWNING_LOC[0], "yellow")
-	YELLOW_SPACESHIP = pygame.sprite.GroupSingle(sprite = YELLOW_SPACESHIP)
-
-	RED_SPACESHIP = SpaceShip(pygame.image.load(os.path.join("Assets", "spaceship_red.png")), SPAWNING_LOC[1], "red")
-	RED_SPACESHIP = pygame.sprite.GroupSingle(sprite = RED_SPACESHIP)
-
-	# Bullets
-	Red_bullets = pygame.sprite.Group()
-	Yellow_bullets = pygame.sprite.Group()
-
 
 	# Game loop
 	while run:
@@ -187,52 +192,64 @@ def main():
 			if eve.type == pygame.QUIT:
 				run = False
 
-			# Firing!
-			elif eve.type == pygame.KEYDOWN:
-				if eve.key == pygame.K_LCTRL and len(Yellow_bullets.sprites()) < MAX_BULLETS:
-					Yellow_bullets.add( Bullet(YELLOW_SPACESHIP.sprite.rect.midright, "yellow") )
-					FIRE_SOUND.play()
 
-				if eve.key == pygame.K_RCTRL and len(Red_bullets.sprites()) < MAX_BULLETS:
-					Red_bullets.add( Bullet(RED_SPACESHIP.sprite.rect.midleft, "red") )
-					FIRE_SOUND.play()		
+			elif game_state == "playing":
 
+				# Firing!
+				if eve.type == pygame.KEYDOWN:
+					if eve.key == pygame.K_LCTRL and len(Yellow_bullets.sprites()) < MAX_BULLETS:
+						Yellow_bullets.add( Bullet(YELLOW_SPACESHIP.sprite.rect.midright, "yellow") )
+						FIRE_SOUND.play()
 
-		# Changes
-		Red_bullets.update()
-		Yellow_bullets.update()
-
-		RED_SPACESHIP.update(Red_bullets, Yellow_bullets)
-		YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets)
-
-		checking_wining(RED_SPACESHIP, YELLOW_SPACESHIP)
+					if eve.key == pygame.K_RCTRL and len(Red_bullets.sprites()) < MAX_BULLETS:
+						Red_bullets.add( Bullet(RED_SPACESHIP.sprite.rect.midleft, "red") )
+						FIRE_SOUND.play()
 
 
-		# Draw
+		if game_state == "playing":
+			# Updates
+			Red_bullets.update()
+			Yellow_bullets.update()
 
-		# BG
-		screen.blit(BG, (0,0))
-		pygame.draw.rect(screen, BLACK, BORDER)
+			RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
+			YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
 
-		# bullets
-		Yellow_bullets.draw(screen)
-		Red_bullets.draw(screen)
+			# checking if anybody wins
+			if RED_SPACESHIP.sprite.health == 0:
+				game_state = "Yellow Wins"
 
-		# healths
-		YELLOW_HEALTH = HEALTH_FONT.render("Health: "+str(YELLOW_SPACESHIP.sprite.health), True, WHITE)
-		RED_HEALTH = HEALTH_FONT.render("Health: "+str(RED_SPACESHIP.sprite.health), True, WHITE)
-
-		RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
-
-		screen.blit(YELLOW_HEALTH, (10, 10))
-		screen.blit(RED_HEALTH, RED_HEALTH_RECT)
-
-		# spaceships
-		RED_SPACESHIP.draw(screen)
-		YELLOW_SPACESHIP.draw(screen)
+			elif YELLOW_SPACESHIP.sprite.health == 0:
+				game_state = "Red Wins"
 
 
-		# Update
+			# Draw
+			draw()
+
+		# Somebody wins
+		else:
+			# drawing the winning message
+			WIN = WIN_FONT.render(game_state, True, RED if game_state[0] == "R" else YELLOW)
+			WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
+
+			screen.blit(WIN, WIN_RECT)
+
+			# countdown mechanics
+			countdown -= 0.1
+			
+			# restart mechanics
+			if countdown < 0:
+				countdown = 20
+
+				Red_bullets.empty()
+				Yellow_bullets.empty()
+
+				RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+				YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+
+				game_state = "playing"
+
+
+		# Display Everything that have been drawn
 		pygame.display.update()
 
 
