@@ -19,6 +19,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Sounds
 HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Hit.mp3"))
 FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Fire.mp3"))
+DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Dead.wav"))
 
 
 # Colors
@@ -217,9 +218,11 @@ def main():
 			# checking if anybody wins
 			if RED_SPACESHIP.sprite.health == 0:
 				game_state = "Yellow Wins"
+				DEAD_SOUND.play()
 
 			elif YELLOW_SPACESHIP.sprite.health == 0:
 				game_state = "Red Wins"
+				DEAD_SOUND.play()
 
 
 			# Draw
@@ -250,7 +253,7 @@ def main():
 
 
 		# Display Everything that have been drawn
-		pygame.display.update()
+		pygame.display.flip()
 
 
 		CLOCK.tick(FPS)
