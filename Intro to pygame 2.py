@@ -37,9 +37,11 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 # Sounds
-HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Hit.mp3"))
-FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Fire.mp3"))
-DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Dead.wav"))
+HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Hit.mp3"))
+FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
+DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Dead.wav"))
+CLAIM_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Claiming Sound.mp3"))
+
 
 
 # Timers
@@ -241,10 +243,12 @@ class Power_Up(pygame.sprite.Sprite):
 	def is_claiming(self):
 		if self.group == "red": 
 			if self.rect.colliderect(RED_SPACESHIP.sprite.rect):
+				CLAIM_SOUND.play()
 				return True
 
 		elif self.group == "yellow":
 			if self.rect.colliderect(YELLOW_SPACESHIP.sprite.rect):
+				CLAIM_SOUND.play()
 				return True
 
 	def activate(self):
