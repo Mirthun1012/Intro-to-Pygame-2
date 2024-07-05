@@ -41,6 +41,7 @@ HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Hit.mp3"))
 FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
 DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Dead.wav"))
 CLAIM_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Claiming Sound.mp3"))
+SPAWN_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Spawning Sound.mp3"))
 
 
 
@@ -177,6 +178,8 @@ Yellow_bullets = pygame.sprite.Group()
 
 
 # Power Ups
+MAX_POWERUPS = 3
+
 class Power_Up(pygame.sprite.Sprite):
 
 	def __init__(self, spaceship):
@@ -398,12 +401,14 @@ def main():
 
 				# Spawning Power Ups!
 				if eve.type == SPAWN_POWERUP_RED:
-					if len(Power_Ups_Red.sprites()) < 2:
+					if len(Power_Ups_Red.sprites()) < MAX_POWERUPS:
 						Power_Ups_Red.add(Power_Up("red"))
+						SPAWN_SOUND.play()
 
 				if eve.type == SPAWN_POWERUP_YELLOW:
-					if len(Power_Ups_Yellow.sprites()) < 2:
+					if len(Power_Ups_Yellow.sprites()) < MAX_POWERUPS:
 						Power_Ups_Yellow.add(Power_Up("yellow"))
+						SPAWN_SOUND.play()
 
 
 		if game_state == "playing":
