@@ -1,0 +1,838 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ac",
+				"active"
+			],
+			[
+				"a",
+				"activate"
+			],
+			[
+				"get",
+				"get_ticks"
+			],
+			[
+				"SP",
+				"SPAWN_SOUND"
+			],
+			[
+				"C",
+				"CLAIM_SOUND"
+			],
+			[
+				"O",
+				"OG_VELOCITY"
+			],
+			[
+				"OG",
+				"OG_MAX_BULLETS"
+			],
+			[
+				"ma",
+				"max_bullets"
+			],
+			[
+				"de",
+				"deactivate"
+			],
+			[
+				"T",
+				"Timer"
+			],
+			[
+				"m",
+				"max_bullets"
+			],
+			[
+				"upd",
+				"update"
+			],
+			[
+				"set",
+				"set_mode"
+			],
+			[
+				"s",
+				"start"
+			],
+			[
+				"ene",
+				"enemy_speed"
+			],
+			[
+				"EN",
+				"enemy_speed"
+			],
+			[
+				"get_t",
+				"get_ticks"
+			],
+			[
+				"P",
+				"Power_Ups_Yellow"
+			],
+			[
+				"max_",
+				"max_bullets"
+			],
+			[
+				"Y",
+				"YELLOW_SPACESHIP"
+			],
+			[
+				"is",
+				"is_claiming"
+			],
+			[
+				"t",
+				"type"
+			],
+			[
+				"spr",
+				"spritecollide"
+			],
+			[
+				"R",
+				"RED_SPACESHIP"
+			],
+			[
+				"col",
+				"colliderect"
+			],
+			[
+				"to",
+				"topleft"
+			],
+			[
+				"check",
+				"checking_overlaps"
+			],
+			[
+				"W",
+				"WIDTH"
+			],
+			[
+				"B",
+				"BORDER"
+			],
+			[
+				"S",
+				"SPAWN_POWERUP_RED"
+			],
+			[
+				"pos",
+				"positioning"
+			],
+			[
+				"Pow",
+				"Power_Up"
+			],
+			[
+				"G",
+				"Group"
+			],
+			[
+				"MA",
+				"MAX_BULLETS"
+			],
+			[
+				"M",
+				"MOVE_SOUND"
+			],
+			[
+				"D",
+				"DEAD_SOUND"
+			],
+			[
+				"ro",
+				"rotate"
+			],
+			[
+				"__",
+				"__init__"
+			],
+			[
+				"WIN",
+				"WIN_RECT"
+			],
+			[
+				"Yell",
+				"YELLOW"
+			],
+			[
+				"che",
+				"checking_wining"
+			],
+			[
+				"quit",
+				"quit"
+			],
+			[
+				"H",
+				"HIT_SOUND"
+			],
+			[
+				"YE",
+				"YELLOW"
+			],
+			[
+				"wi",
+				"wining_text"
+			],
+			[
+				"los",
+				"losing_text"
+			],
+			[
+				"RE",
+				"RED_HEALTH"
+			],
+			[
+				"HE",
+				"HEALTH_FONT"
+			],
+			[
+				"mid",
+				"midright"
+			],
+			[
+				"y",
+				"Yellow_bullets"
+			],
+			[
+				"sprite",
+				"spritecollide"
+			],
+			[
+				"RED",
+				"RED_HIT"
+			],
+			[
+				"red",
+				"RED_SPACESHIP"
+			],
+			[
+				"Red",
+				"RED_SPACESHIP"
+			],
+			[
+				"Gro",
+				"GroupSingle"
+			],
+			[
+				"Ye",
+				"YELLOW_SPACESHIP"
+			],
+			[
+				"move",
+				"movement"
+			],
+			[
+				"yel",
+				"yellow_bullets"
+			],
+			[
+				"ye",
+				"yellow_bullets"
+			],
+			[
+				"yell",
+				"yellow_spaceship_rect"
+			],
+			[
+				"loa",
+				"load"
+			],
+			[
+				"sca",
+				"scale"
+			],
+			[
+				"ser",
+				"set_timer"
+			],
+			[
+				"Playe",
+				"player"
+			],
+			[
+				"p",
+				"PLAYER_WALK"
+			],
+			[
+				"pl",
+				"play"
+			],
+			[
+				"sp",
+				"speed"
+			],
+			[
+				"lo",
+				"load"
+			],
+			[
+				"run",
+				"running"
+			],
+			[
+				"kil",
+				"kill"
+			],
+			[
+				"RECT",
+				"Rect"
+			],
+			[
+				"CLO",
+				"CLOUDS"
+			],
+			[
+				"Gr",
+				"GroupSingle"
+			],
+			[
+				"Clou",
+				"CLOUD_3"
+			],
+			[
+				"Clo",
+				"CLOUD_2"
+			],
+			[
+				"Cloud",
+				"CLOUD_1"
+			],
+			[
+				"pla",
+				"play"
+			],
+			[
+				"SOU",
+				"Sound"
+			],
+			[
+				"scree",
+				"screen_state"
+			],
+			[
+				"res",
+				"restart_changes"
+			],
+			[
+				"e",
+				"enemy_speed"
+			],
+			[
+				"ki",
+				"kill"
+			],
+			[
+				"E",
+				"Enemy"
+			],
+			[
+				"Enem",
+				"Enemies"
+			],
+			[
+				"GRou",
+				"Group"
+			],
+			[
+				"player",
+				"player_index"
+			],
+			[
+				"PL",
+				"PLAYER_JUMP"
+			],
+			[
+				"app",
+				"apply_gravity"
+			],
+			[
+				"dra",
+				"draw"
+			],
+			[
+				"draw",
+				"draw"
+			],
+			[
+				"Play",
+				"Player"
+			],
+			[
+				"snail",
+				"snail_surf"
+			],
+			[
+				"snai",
+				"SNAIL_SURFS"
+			],
+			[
+				"sni",
+				"snail_animation"
+			],
+			[
+				"fly",
+				"fly_animation"
+			],
+			[
+				"sna",
+				"snail_index"
+			],
+			[
+				"PLAYE",
+				"PLAYER_WALK"
+			],
+			[
+				"play",
+				"player_rect"
+			],
+			[
+				"playe",
+				"player_surf"
+			],
+			[
+				"PLA",
+				"PLAYER_WALK"
+			],
+			[
+				"ob",
+				"obstacle_rects_list"
+			],
+			[
+				"enme",
+				"enemies_list"
+			],
+			[
+				"obsta",
+				"obstacle_rect"
+			],
+			[
+				"enem",
+				"enemies_list"
+			],
+			[
+				"obstacle",
+				"obstacle_rect"
+			],
+			[
+				"eme",
+				"enemies_list"
+			],
+			[
+				"F",
+				"FLY_SURF"
+			],
+			[
+				"obe",
+				"obstacle_rect"
+			],
+			[
+				"if",
+				"if\tIf Condition"
+			],
+			[
+				"enemi",
+				"enemies_list"
+			],
+			[
+				"en",
+				"enemies_list"
+			],
+			[
+				"obs",
+				"obstacle_rects_list"
+			],
+			[
+				"KEY",
+				"KEYUP"
+			],
+			[
+				"SCO",
+				"SCORE_DISPLAY"
+			],
+			[
+				"out",
+				"OUT_SCORE_rect"
+			],
+			[
+				"game",
+				"game_title_rect"
+			],
+			[
+				"GAME",
+				"GAME_TITLE"
+			],
+			[
+				"get_ti",
+				"get_ticks"
+			],
+			[
+				"sco",
+				"score_surf"
+			],
+			[
+				"score",
+				"score_rect"
+			],
+			[
+				"scor",
+				"score_rect"
+			],
+			[
+				"bli",
+				"blit"
+			],
+			[
+				"Ene",
+				"ENEMY_SPEED"
+			],
+			[
+				"collide",
+				"collidepoint"
+			],
+			[
+				"sn",
+				"snail_pos"
+			],
+			[
+				"fi",
+				"fill"
+			],
+			[
+				"se",
+				"set_mode"
+			],
+			[
+				"init",
+				"init"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pyh",
+				"Set Syntax: Python"
+			],
+			[
+				"set",
+				"Set Syntax: Python"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"ter",
+				"Terminus: Close"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"set syntax py",
+				"Set Syntax: Python"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: add ",
+				"Package Control: Advanced Install Packages"
+			],
+			[
+				"pytho",
+				"Set Syntax: Python"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"pyhton",
+				"Build With: Python"
+			],
+			[
+				"termi",
+				"Terminus: Reset"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"intsall p",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"ins",
+				"Install Package Control"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/__pycache__"
+	],
+	"file_history":
+	[
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Intro to pygame 2.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Sublime Project/SpaceShooters.sublime-project",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Test.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Timers.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame/Intro to pygame.py",
+		"/C/Users/TOSHIBA/Desktop/Test.py",
+		"/C/Users/TOSHIBA/Desktop/UltimatePygameIntro-main/runner_class only.py",
+		"/C/Users/TOSHIBA/Desktop/UltimatePygameIntro-main/runner_video.py",
+		"/C/Users/TOSHIBA/Desktop/10th_Mathematics_EM_www.tntextbooks.in.pdf",
+		"/C/Users/TOSHIBA/Desktop/DElete it",
+		"/C/Users/TOSHIBA/Desktop/DElete it.py",
+		"/C/Users/TOSHIBA/AppData/Local/Programs/Python/Python312/Lib/site-packages/pygame/examples/go_over_there.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Turtle/Intro.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Tutorial_1.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Main",
+		"/C/Users/TOSHIBA/Desktop/hello.py",
+		"/E/mirthun file/HTML/tutorials/phone.html",
+		"/E/mirthun file/HTML/tutorials/for_phone.css",
+		"/C/Users/TOSHIBA/Desktop/foranimation.css",
+		"/C/Users/TOSHIBA/Desktop/animation.html",
+		"/E/mirthun file/HTML/Bucky_tutorial/index.html",
+		"/E/mirthun file/HTML/Bucky_tutorial/javascript_code.js",
+		"/E/mirthun file/HTML/Bucky_tutorial/second page.html",
+		"/C/Users/TOSHIBA/Desktop/position.html",
+		"/C/Users/TOSHIBA/Desktop/deleteit.html",
+		"/E/mirthun file/HTML/tutorials/for_summa.css",
+		"/E/mirthun file/HTML/tutorials/summa.html",
+		"/E/mirthun file/HTML/animations/animation.html",
+		"/C/Users/TOSHIBA/Desktop/priyadharshan.html",
+		"/E/mirthun file/FRIENDS/car_quiz/logo/images/download.jfif",
+		"/C/Users/TOSHIBA/Downloads/download__602a890c13d72/602a8910bc2ea_PassssW0rdFile.txt",
+		"/C/Users/TOSHIBA/Desktop/hi.cpp",
+		"/C/Users/TOSHIBA/Desktop/animation",
+		"/C/Users/TOSHIBA/Desktop/summaaaa.html",
+		"/C/Users/TOSHIBA/Desktop/summaaaa"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 132.0
+	},
+	"output.exec":
+	{
+		"height": 132.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 132.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "SpaceShooters.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"E:\\Mirthun file\\Programming\\Python\\Tutorial\\Pygame\\Intro to pygame 2\\Space Shooters.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 328.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

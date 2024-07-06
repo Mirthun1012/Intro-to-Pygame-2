@@ -1,24 +1,10 @@
 """
 	NOTE:
-		Adding powerups!
-
-		----------
-		1. Health refill --- +2 (compleded)
-		2. Maximum bullet --- +2 -- for 5 seconds
-		3. Speed up the player ship -- for 5 seconds
-		----------
 		
-		1. Spawning -- maximum 2 for the player in the screen (completed)
-			Should not overlap with Border, Own SpaceShip, another power_up (completed)
-
-		2. Claiming the powerups (completed )
-
-		3. Spwaning time logic! (completed)
-
-		4. Spawning diff power ups (completed)
-
-		5. Removing the power up after some time! (completed)
-
+		Adding the main screen!
+ 
+		Updating this game as a project from a single file!! (completed)
+	
 """
 
 
@@ -373,7 +359,7 @@ def main():
 
 	game_state = "playing" # It carries the winning message when it is != "playing"
 
-	countdown = 180 # 3 secs
+	winning_wait = Timer(3*1000)
 
 	run = True
 
@@ -425,10 +411,12 @@ def main():
 			# checking if anybody wins
 			if RED_SPACESHIP.sprite.health == 0:
 				game_state = "Yellow Wins"
+				winning_wait.activate()
 				DEAD_SOUND.play()
 
 			elif YELLOW_SPACESHIP.sprite.health == 0:
 				game_state = "Red Wins"
+				winning_wait.activate()
 				DEAD_SOUND.play()
 
 
@@ -443,12 +431,10 @@ def main():
 
 			screen.blit(WIN, WIN_RECT)
 
-			# countdown mechanics
-			countdown -= 1
+			winning_wait.update()
 			
 			# restart mechanics
-			if countdown < 0:
-				countdown = 180
+			if not winning_wait.active:
 
 				Red_bullets.empty()
 				Yellow_bullets.empty()
