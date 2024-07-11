@@ -1,12 +1,17 @@
 """
 	NOTE:
 		
-		Adding the main screen!
+		Adding the intro screen!
  
 		Updating this game as a project from a single file!! (completed)
+
+		------------------
+
+		In the proces of making intro screen func in game manager!
+
+		Before that.. Solve the bugs in the Game Manager class with main and outro screen! (completed)
 	
 """
-
 
 import pygame
 import os
@@ -30,7 +35,6 @@ CLAIM_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Claiming Soun
 SPAWN_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Spawning Sound.mp3"))
 
 
-
 # Timers
 SPAWN_POWERUP_RED = pygame.USEREVENT + 1
 SPAWN_POWERUP_YELLOW = pygame.USEREVENT + 2
@@ -52,6 +56,17 @@ FPS = 60
 # Font
 HEALTH_FONT = pygame.font.SysFont("comicsans", 30)
 WIN_FONT = pygame.font.SysFont("comicsans", 100)
+TITLE_FONT = pygame.font.SysFont("fixedsys", 50)
+
+
+# BG
+BG = pygame.image.load(os.path.join("Assets", "space.png"))
+BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
+
+
+# Border
+BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
+
 
 # Spaceships
 SPAWNING_LOC = [ ((WIDTH//2)-300, HEIGHT//2), ((WIDTH//2)+300 , HEIGHT//2) ] # For Center Argument 
@@ -319,61 +334,25 @@ Power_Ups_Red = pygame.sprite.Group()
 Power_Ups_Yellow = pygame.sprite.Group()
 
 
-# BG
-BG = pygame.image.load(os.path.join("Assets", "space.png"))
-BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
+# Game Manager
+class Game_Manager():
 
+	def __init__(self):
+		self.state = "Intro"
+		self.run = True
 
-# Border
-BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
+		# Signals for Outro
+		self.won_spaceship = ""
+		self.outro_wait = Timer(3*1000)
 
+	def event_loop(self):
 
-def draw():
-	# BG
-	screen.blit(BG, (0,0))
-	pygame.draw.rect(screen, BLACK, BORDER)
-
-	# bullets
-	Yellow_bullets.draw(screen)
-	Red_bullets.draw(screen)
-
-	# healths
-	YELLOW_HEALTH = HEALTH_FONT.render("Health: "+str(YELLOW_SPACESHIP.sprite.health), True, WHITE)
-	RED_HEALTH = HEALTH_FONT.render("Health: "+str(RED_SPACESHIP.sprite.health), True, WHITE)
-
-	RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
-
-	screen.blit(YELLOW_HEALTH, (10, 10))
-	screen.blit(RED_HEALTH, RED_HEALTH_RECT)
-
-	# power ups
-	Power_Ups_Red.draw(screen)
-	Power_Ups_Yellow.draw(screen)
-
-	# spaceships
-	RED_SPACESHIP.draw(screen)
-	YELLOW_SPACESHIP.draw(screen)
-
-
-def main():
-
-	game_state = "playing" # It carries the winning message when it is != "playing"
-
-	winning_wait = Timer(3*1000)
-
-	run = True
-
-	# Game loop
-	while run:
-
-		# Event loop
 		for eve in pygame.event.get():
 
 			if eve.type == pygame.QUIT:
-				run = False
+				self.run = False
 
-
-			if game_state == "playing":
+			elif self.state == "Main Screen":
 
 				# Firing!
 				if eve.type == pygame.KEYDOWN:
@@ -397,62 +376,126 @@ def main():
 						SPAWN_SOUND.play()
 
 
-		if game_state == "playing":
-			# Updates
-			Red_bullets.update()
-			Yellow_bullets.update()
+	def intro(self):
+		
+		# BG
+		screen.blit(BG, (0, 0))
 
-			RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
-			YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
-
-			Power_Ups_Red.update()
-			Power_Ups_Yellow.update()
-
-			# checking if anybody wins
-			if RED_SPACESHIP.sprite.health == 0:
-				game_state = "Yellow Wins"
-				winning_wait.activate()
-				DEAD_SOUND.play()
-
-			elif YELLOW_SPACESHIP.sprite.health == 0:
-				game_state = "Red Wins"
-				winning_wait.activate()
-				DEAD_SOUND.play()
+		TITLE_FONT.render("SPACE", True, WHITE)
 
 
-			# Draw
-			draw()
+	# Main Screen
+	def main_screen(self):
 
-		# Somebody wins
-		else:
-			# drawing the winning message
-			WIN = WIN_FONT.render(game_state, True, RED if game_state[0] == "R" else YELLOW)
-			WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
+		# Updates
+		Red_bullets.update()
+		Yellow_bullets.update()
 
-			screen.blit(WIN, WIN_RECT)
+		RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
+		YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
 
-			winning_wait.update()
-			
-			# restart mechanics
-			if not winning_wait.active:
+		Power_Ups_Red.update()
+		Power_Ups_Yellow.update()
 
-				Red_bullets.empty()
-				Yellow_bullets.empty()
+		# checking if anybody wins
+		if RED_SPACESHIP.sprite.health == 0:
+			self.state = "Outro"
+			self.won_spaceship = "Yellow"
+			self.outro_wait.activate()
+			DEAD_SOUND.play()
 
-				RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
-				YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+		elif YELLOW_SPACESHIP.sprite.health == 0:
+			self.state = "Outro"
+			self.won_spaceship = "Red"
+			self.outro_wait.activate()
+			DEAD_SOUND.play()
 
-				Power_Ups_Red.empty()
-				Power_Ups_Yellow.empty()
+		# drawing
+		self.main_screen_draw()
 
-				game_state = "playing"
+	def main_screen_draw(self):
+		# BG
+		screen.blit(BG, (0,0))
+		pygame.draw.rect(screen, BLACK, BORDER)
 
+		# bullets
+		Yellow_bullets.draw(screen)
+		Red_bullets.draw(screen)
+
+		# healths
+		YELLOW_HEALTH = HEALTH_FONT.render("Health: "+str(YELLOW_SPACESHIP.sprite.health), True, WHITE)
+		RED_HEALTH = HEALTH_FONT.render("Health: "+str(RED_SPACESHIP.sprite.health), True, WHITE)
+
+		RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
+
+		screen.blit(YELLOW_HEALTH, (10, 10))
+		screen.blit(RED_HEALTH, RED_HEALTH_RECT)
+
+		# power ups
+		Power_Ups_Red.draw(screen)
+		Power_Ups_Yellow.draw(screen)
+
+		# spaceships
+		RED_SPACESHIP.draw(screen)
+		YELLOW_SPACESHIP.draw(screen)
+
+
+	# Outro Screen
+	def outro(self):
+
+		#drawing the winning message
+		WIN = WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
+		WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
+
+		screen.blit(WIN, WIN_RECT)
+
+		self.outro_wait.update()
+
+		# restart mechanics
+		if not self.outro_wait.active:
+
+			Red_bullets.empty()
+			Yellow_bullets.empty()
+
+			RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+			YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+
+			Power_Ups_Red.empty()
+			Power_Ups_Yellow.empty()
+
+			self.state = "Main Screen"
+
+
+	def update(self):
+
+		# Event loop
+		self.event_loop()
+
+		# Changes
+		if self.state == "Intro":
+			self.intro()
+
+		elif self.state == "Main Screen":
+			self.main_screen()
+
+		elif self.state == "Outro":
+			self.outro()
 
 		# Display Everything that have been drawn
 		pygame.display.flip()
 
 
+def main():
+
+	game_manager = Game_Manager()
+
+	# Game loop
+	while game_manager.run:
+
+		game_manager.update()
+
 		CLOCK.tick(FPS)
+
 
 	pygame.quit()
 
