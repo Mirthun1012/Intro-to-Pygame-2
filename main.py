@@ -1,15 +1,10 @@
 """
 	NOTE:
 		
-		Adding the intro screen!
- 
-		Updating this game as a project from a single file!! (completed)
+		Making Different classes for different screens...
 
-		------------------
-
-		In the proces of making intro screen func in game manager!
-
-		Before that.. Solve the bugs in the Game Manager class with main and outro screen! (completed)
+		1. Adding basic three functions in Main Screen class! (completed)
+		2. To find the way to quit the game from Main Screen!
 	
 """
 
@@ -27,36 +22,16 @@ WIDTH, HEIGHT = 900, 500
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
-# Sounds
-HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Hit.mp3"))
-FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
-DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Dead.wav"))
-CLAIM_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Claiming Sound.mp3"))
-SPAWN_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Spawning Sound.mp3"))
-
-
-# Timers
-SPAWN_POWERUP_RED = pygame.USEREVENT + 1
-SPAWN_POWERUP_YELLOW = pygame.USEREVENT + 2
-
-pygame.time.set_timer(SPAWN_POWERUP_RED, randint(8*1000, 20*1000))    # TEST
-pygame.time.set_timer(SPAWN_POWERUP_YELLOW, randint(8*1000, 20*1000))  # TEST
-
-
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
+
 # FPS
 CLOCK = pygame.time.Clock()
 FPS = 60
-
-# Font
-HEALTH_FONT = pygame.font.SysFont("comicsans", 30)
-WIN_FONT = pygame.font.SysFont("comicsans", 100)
-TITLE_FONT = pygame.font.SysFont("fixedsys", 50)
 
 
 # BG
@@ -64,16 +39,9 @@ BG = pygame.image.load(os.path.join("Assets", "space.png"))
 BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
 
 
-# Border
-BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
-
-
-# Spaceships
-SPAWNING_LOC = [ ((WIDTH//2)-300, HEIGHT//2), ((WIDTH//2)+300 , HEIGHT//2) ] # For Center Argument 
-
 class SpaceShip(pygame.sprite.Sprite):
 
-	def __init__(self, surface, pos, type):
+	def __init__(self, surface, pos, type, BORDER):
 		super().__init__()
 
 		self.position = pos
@@ -82,10 +50,16 @@ class SpaceShip(pygame.sprite.Sprite):
 		self.velocity = 3		
 		self.max_bullets = 3
 
-		# for powerups
+		# For powerups
 		self.OG_HEALTH = 10
 		self.OG_VELOCITY = 3
 		self.OG_MAX_BULLETS = 3
+
+		# For border
+		self.BORDER = BORDER
+
+		# Sounds
+		self.HIT_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Hit.mp3"))
 
 		self.image = surface.convert_alpha()
 		self.rect = self.image.get_rect(center = self.position)
@@ -101,7 +75,7 @@ class SpaceShip(pygame.sprite.Sprite):
 			if keys_pressed[pygame.K_s] and self.rect.bottom + self.velocity < HEIGHT:
 				self.rect.bottom += self.velocity
 			# RIGHT
-			if keys_pressed[pygame.K_d] and self.rect.right + self.velocity < BORDER.left:
+			if keys_pressed[pygame.K_d] and self.rect.right + self.velocity < self.BORDER.left:
 				self.rect.right += self.velocity
 			# UP
 			if keys_pressed[pygame.K_w] and self.rect.top - self.velocity > 0:
@@ -109,7 +83,7 @@ class SpaceShip(pygame.sprite.Sprite):
 
 		else:
 			# LEFT
-			if keys_pressed[pygame.K_LEFT] and self.rect.left - self.velocity > BORDER.right:
+			if keys_pressed[pygame.K_LEFT] and self.rect.left - self.velocity > self.BORDER.right:
 				self.rect.left -= self.velocity
 			# DOWN
 			if keys_pressed[pygame.K_DOWN] and self.rect.bottom + self.velocity < HEIGHT:
@@ -128,7 +102,7 @@ class SpaceShip(pygame.sprite.Sprite):
 		if pygame.sprite.spritecollide(self, group, True):
 			if self.health > 0:
 				self.health -= 1
-				HIT_SOUND.play()
+				self.HIT_SOUND.play()
 
 	def update(self, Red_bullets, Yellow_bullets, game_state):
 		if game_state == "playing":
@@ -137,14 +111,6 @@ class SpaceShip(pygame.sprite.Sprite):
 		else:
 			self.__init__(self.image, SPAWNING_LOC[0] if self.type == "yellow" else SPAWNING_LOC[1], self.type)
 
-YELLOW_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_yellow.png")), 90), SPAWNING_LOC[0], "yellow")
-YELLOW_SPACESHIP = pygame.sprite.GroupSingle(sprite = YELLOW_SPACESHIP)
-
-RED_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_red.png")), -90), SPAWNING_LOC[1], "red")
-RED_SPACESHIP = pygame.sprite.GroupSingle(sprite = RED_SPACESHIP)
-
-
-# Bullets
 class Bullet(pygame.sprite.Sprite):
 
 	def __init__(self, position, bullet_type):
@@ -174,17 +140,13 @@ class Bullet(pygame.sprite.Sprite):
 	def update(self):
 		self.movement()
 
-Red_bullets = pygame.sprite.Group()
-Yellow_bullets = pygame.sprite.Group()
-
-
-# Power Ups
-MAX_POWERUPS = 3
-
 class Power_Up(pygame.sprite.Sprite):
 
 	def __init__(self, spaceship):
 		super().__init__()
+
+		# Sound
+		self.CLAIM_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Claiming Sound.mp3"))
 
 		self.group = spaceship
 		self.type = choice(["Health", "Ammo", "Speed Up"])
@@ -203,19 +165,19 @@ class Power_Up(pygame.sprite.Sprite):
 		x, y = 0, 0
 
 		if self.group == "yellow":
-			x, y = randint(0, BORDER.left-self.size), randint(0, HEIGHT-self.size)
+			x, y = randint(0, self.BORDER.left-self.size), randint(0, HEIGHT-self.size)
 			self.rect.topleft = (x, y)
 
 			while self.is_overlap():
-				x, y = randint(0, BORDER.left-self.size), randint(0, HEIGHT-self.size)
+				x, y = randint(0, self.BORDER.left-self.size), randint(0, HEIGHT-self.size)
 				self.rect.topleft = (x, y)
 
 		elif self.group == "red":
-			x, y = randint(BORDER.right, WIDTH-self.size), randint(0, HEIGHT-self.size)
+			x, y = randint(self.BORDER.right, WIDTH-self.size), randint(0, HEIGHT-self.size)
 			self.rect.topleft = (x, y)
 
 			while self.is_overlap():
-				x, y = randint(BORDER.right, WIDTH-self.size), randint(0, HEIGHT-self.size)
+				x, y = randint(self.BORDER.right, WIDTH-self.size), randint(0, HEIGHT-self.size)
 				self.rect.topleft = (x, y)
 
 	def is_overlap(self):
@@ -330,101 +292,122 @@ class Power_Up(pygame.sprite.Sprite):
 		if self.type != "Health" and self.timers[self.type].active:
 			self.deactivate()
 
-Power_Ups_Red = pygame.sprite.Group()
-Power_Ups_Yellow = pygame.sprite.Group()
 
 
-# Game Manager
-class Game_Manager():
+class Signals():
 
 	def __init__(self):
-		self.state = "Intro"
+		pass
+
+
+class Main_Screen(Signals):
+
+	def __init__(self):
+		super().__init__()
+
 		self.run = True
 
-		# Signals for Outro
-		self.won_spaceship = ""
-		self.outro_wait = Timer(3*1000)
+		# Sounds
+		self.FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
+		self.DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Dead.wav"))
+		self.SPAWN_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Spawning Sound.mp3"))
 
-	def event_loop(self):
+		# Timers
+		self.SPAWN_POWERUP_RED = pygame.event.custom_type()
+		self.SPAWN_POWERUP_YELLOW = pygame.event.custom_type()
 
-		for eve in pygame.event.get():
+		# Font
+		self.HEALTH_FONT = pygame.font.SysFont("comicsans", 30)
+		self.WIN_FONT = pygame.font.SysFont("comicsans", 100)
+		self.TITLE_FONT = pygame.font.SysFont("fixedsys", 50)
 
+		# Border
+		self.BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
+
+		# Spaceships
+		self.SPAWNING_LOC = [ ((WIDTH//2)-300, HEIGHT//2), ((WIDTH//2)+300 , HEIGHT//2) ] # For Center Argument 
+
+		self.YELLOW_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_yellow.png")), 90), self.SPAWNING_LOC[0], "yellow", self.BORDER)
+		self.YELLOW_SPACESHIP = pygame.sprite.GroupSingle(sprite = self.YELLOW_SPACESHIP)
+		self.RED_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_red.png")), -90), self.SPAWNING_LOC[1], "red", self.BORDER)
+		self.RED_SPACESHIP = pygame.sprite.GroupSingle(sprite = self.RED_SPACESHIP)
+
+		# Bullets
+		self.Red_bullets = pygame.sprite.Group()
+		self.Yellow_bullets = pygame.sprite.Group()
+
+		# Power Ups
+		self.MAX_POWERUPS = 3
+
+		self.Power_Ups_Red = pygame.sprite.Group()
+		self.Power_Ups_Yellow = pygame.sprite.Group()
+
+	def event_manager(self, events):
+
+		for eve in events:
+
+			# Quitting
 			if eve.type == pygame.QUIT:
 				self.run = False
 
-			elif self.state == "Main Screen":
+			# Firing!
+			if eve.type == pygame.KEYDOWN:
+				if eve.key == pygame.K_LCTRL and len(self.Yellow_bullets.sprites()) < self.YELLOW_SPACESHIP.sprite.max_bullets:
+					self.Yellow_bullets.add( Bullet(self.YELLOW_SPACESHIP.sprite.rect.midright, "yellow") )
+					self.FIRE_SOUND.play()
 
-				# Firing!
-				if eve.type == pygame.KEYDOWN:
-					if eve.key == pygame.K_LCTRL and len(Yellow_bullets.sprites()) < YELLOW_SPACESHIP.sprite.max_bullets:
-						Yellow_bullets.add( Bullet(YELLOW_SPACESHIP.sprite.rect.midright, "yellow") )
-						FIRE_SOUND.play()
+				if eve.key == pygame.K_RCTRL and len(self.Red_bullets.sprites()) < self.RED_SPACESHIP.sprite.max_bullets:
+					self.Red_bullets.add( Bullet(self.RED_SPACESHIP.sprite.rect.midleft, "red") )
+					self.FIRE_SOUND.play()
 
-					if eve.key == pygame.K_RCTRL and len(Red_bullets.sprites()) < RED_SPACESHIP.sprite.max_bullets:
-						Red_bullets.add( Bullet(RED_SPACESHIP.sprite.rect.midleft, "red") )
-						FIRE_SOUND.play()
+			# Spawning Power Ups!
+			# if eve.type == SPAWN_POWERUP_RED:
+			# 	if len(self.Power_Ups_Red.sprites()) < self.MAX_POWERUPS:
+			# 		self.Power_Ups_Red.add(Power_Up("red"))
+			# 		self.SPAWN_SOUND.play()
 
-				# Spawning Power Ups!
-				if eve.type == SPAWN_POWERUP_RED:
-					if len(Power_Ups_Red.sprites()) < MAX_POWERUPS:
-						Power_Ups_Red.add(Power_Up("red"))
-						SPAWN_SOUND.play()
+			# if eve.type == SPAWN_POWERUP_YELLOW:
+			# 	if len(self.Power_Ups_Yellow.sprites()) < self.MAX_POWERUPS:
+			# 		self.Power_Ups_Yellow.add(Power_Up("yellow"))
+			# 		self.SPAWN_SOUND.play()
 
-				if eve.type == SPAWN_POWERUP_YELLOW:
-					if len(Power_Ups_Yellow.sprites()) < MAX_POWERUPS:
-						Power_Ups_Yellow.add(Power_Up("yellow"))
-						SPAWN_SOUND.play()
-
-
-	def intro(self):
-		
-		# BG
-		screen.blit(BG, (0, 0))
-
-		TITLE_FONT.render("SPACE", True, WHITE)
-
-
-	# Main Screen
-	def main_screen(self):
+	def changes(self):
 
 		# Updates
-		Red_bullets.update()
-		Yellow_bullets.update()
+		self.Red_bullets.update()
+		self.Yellow_bullets.update()
 
-		RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
-		YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "playing")
+		self.RED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing")
+		self.YELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing")
 
-		Power_Ups_Red.update()
-		Power_Ups_Yellow.update()
+		self.Power_Ups_Red.update()
+		self.Power_Ups_Yellow.update()
 
-		# checking if anybody wins
-		if RED_SPACESHIP.sprite.health == 0:
-			self.state = "Outro"
-			self.won_spaceship = "Yellow"
-			self.outro_wait.activate()
-			DEAD_SOUND.play()
+		# # checking if anybody wins
+		# if RED_SPACESHIP.sprite.health == 0:
+		# 	self.state = "Outro"
+		# 	self.won_spaceship = "Yellow"
+		# 	self.outro_wait.activate()
+		# 	DEAD_SOUND.play()
 
-		elif YELLOW_SPACESHIP.sprite.health == 0:
-			self.state = "Outro"
-			self.won_spaceship = "Red"
-			self.outro_wait.activate()
-			DEAD_SOUND.play()
+		# elif YELLOW_SPACESHIP.sprite.health == 0:
+		# 	self.state = "Outro"
+		# 	self.won_spaceship = "Red"
+		# 	self.outro_wait.activate()
+		# 	DEAD_SOUND.play()
 
-		# drawing
-		self.main_screen_draw()
-
-	def main_screen_draw(self):
+	def draw_and_display(self):
 		# BG
 		screen.blit(BG, (0,0))
-		pygame.draw.rect(screen, BLACK, BORDER)
+		pygame.draw.rect(screen, BLACK, self.BORDER)
 
 		# bullets
-		Yellow_bullets.draw(screen)
-		Red_bullets.draw(screen)
+		self.Yellow_bullets.draw(screen)
+		self.Red_bullets.draw(screen)
 
 		# healths
-		YELLOW_HEALTH = HEALTH_FONT.render("Health: "+str(YELLOW_SPACESHIP.sprite.health), True, WHITE)
-		RED_HEALTH = HEALTH_FONT.render("Health: "+str(RED_SPACESHIP.sprite.health), True, WHITE)
+		YELLOW_HEALTH = self.HEALTH_FONT.render("Health: "+str(self.YELLOW_SPACESHIP.sprite.health), True, WHITE)
+		RED_HEALTH = self.HEALTH_FONT.render("Health: "+str(self.RED_SPACESHIP.sprite.health), True, WHITE)
 
 		RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
 
@@ -432,67 +415,87 @@ class Game_Manager():
 		screen.blit(RED_HEALTH, RED_HEALTH_RECT)
 
 		# power ups
-		Power_Ups_Red.draw(screen)
-		Power_Ups_Yellow.draw(screen)
+		self.Power_Ups_Red.draw(screen)
+		self.Power_Ups_Yellow.draw(screen)
 
 		# spaceships
-		RED_SPACESHIP.draw(screen)
-		YELLOW_SPACESHIP.draw(screen)
+		self.RED_SPACESHIP.draw(screen)
+		self.YELLOW_SPACESHIP.draw(screen)
+
+		# Displaying
+		pygame.display.update()
+
+	def update(self, events):
+		self.event_manager(events)
+		self.changes()
+		self.draw_and_display()
+
+# pygame.time.set_timer(SPAWN_POWERUP_RED, randint(8*1000, 20*1000))    # TEST
+# pygame.time.set_timer(SPAWN_POWERUP_YELLOW, randint(8*1000, 20*1000))  # TEST
 
 
-	# Outro Screen
-	def outro(self):
-
-		#drawing the winning message
-		WIN = WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
-		WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
-
-		screen.blit(WIN, WIN_RECT)
-
-		self.outro_wait.update()
-
-		# restart mechanics
-		if not self.outro_wait.active:
-
-			Red_bullets.empty()
-			Yellow_bullets.empty()
-
-			RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
-			YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
-
-			Power_Ups_Red.empty()
-			Power_Ups_Yellow.empty()
-
-			self.state = "Main Screen"
 
 
-	def update(self):
 
-		# Event loop
-		self.event_loop()
+	
 
-		# Changes
-		if self.state == "Intro":
-			self.intro()
+# Signals for Outro
+	# self.won_spaceship = ""
+	# self.outro_wait = Timer(3*1000)	
 
-		elif self.state == "Main Screen":
-			self.main_screen()
+# Outro Screen
+# def outro(self):
 
-		elif self.state == "Outro":
-			self.outro()
+# 	#drawing the winning message
+# 	WIN = WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
+# 	WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
 
-		# Display Everything that have been drawn
-		pygame.display.flip()
+# 	screen.blit(WIN, WIN_RECT)
+
+# 	self.outro_wait.update()
+
+# 	# restart mechanics
+# 	if not self.outro_wait.active:
+
+# 		Red_bullets.empty()
+# 		Yellow_bullets.empty()
+
+# 		RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+# 		YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
+
+# 		Power_Ups_Red.empty()
+# 		Power_Ups_Yellow.empty()
+
+# 		self.state = "Main Screen"
+
+
+
+	
 
 
 def main():
 
-	game_manager = Game_Manager()
+	current_screen = Main_Screen()
+
+	
 
 	# Game loop
-	while game_manager.run:
+	while current_screen.run:
 
-		game_manager.update()
+		# getting events
+		events = pygame.event.get()
+		
+
+		# Getting signals to change the current screen!
+		for signal in events:
+			pass
+
+
+		current_screen.update(events)
+
+
+
+
 
 		CLOCK.tick(FPS)
 
