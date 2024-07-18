@@ -1,10 +1,7 @@
 """
 	NOTE:
 		
-		Making Different classes for different screens...
-
-		1. Adding basic three functions in Main Screen class! (completed)
-		2. To find the way to quit the game from Main Screen!
+		
 	
 """
 
@@ -293,14 +290,31 @@ class Power_Up(pygame.sprite.Sprite):
 			self.deactivate()
 
 
+# Signals
+CHANGE_TO_OUTRO = pygame.event.custom_type()
 
-class Signals():
+
+
+class Screen():
 
 	def __init__(self):
+		self.run = True
+
+	def event_manager(self, events):
 		pass
 
+	def changes(self):
+		pass
 
-class Main_Screen(Signals):
+	def draw_and_display(self):
+		pass
+
+	def update(self, events):
+		self.event_manager(events)
+		self.changes()
+		self.draw_and_display()
+
+class Main_Screen(Screen):
 
 	def __init__(self):
 		super().__init__()
@@ -383,19 +397,15 @@ class Main_Screen(Signals):
 		self.Power_Ups_Red.update()
 		self.Power_Ups_Yellow.update()
 
-		# # checking if anybody wins
-		# if RED_SPACESHIP.sprite.health == 0:
-		# 	self.state = "Outro"
-		# 	self.won_spaceship = "Yellow"
-		# 	self.outro_wait.activate()
-		# 	DEAD_SOUND.play()
-
-		# elif YELLOW_SPACESHIP.sprite.health == 0:
-		# 	self.state = "Outro"
-		# 	self.won_spaceship = "Red"
-		# 	self.outro_wait.activate()
-		# 	DEAD_SOUND.play()
-
+		# checking if anybody wins
+		if RED_SPACESHIP.sprite.health == 0:
+			DEAD_SOUND.play()
+			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Yellow"}))
+		
+		elif YELLOW_SPACESHIP.sprite.health == 0:
+			DEAD_SOUND.play()
+			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Red"}))
+			
 	def draw_and_display(self):
 		# BG
 		screen.blit(BG, (0,0))
@@ -436,13 +446,6 @@ class Main_Screen(Signals):
 
 
 
-
-	
-
-# Signals for Outro
-	# self.won_spaceship = ""
-	# self.outro_wait = Timer(3*1000)	
-
 # Outro Screen
 # def outro(self):
 
@@ -475,8 +478,11 @@ class Main_Screen(Signals):
 
 def main():
 
-	current_screen = Main_Screen()
+	intro_screen = None
+	main_screen = Main_Screen()
+	outro_screen = None
 
+	current_screen = main_screen
 	
 
 	# Game loop
@@ -492,9 +498,6 @@ def main():
 
 
 		current_screen.update(events)
-
-
-
 
 
 		CLOCK.tick(FPS)
