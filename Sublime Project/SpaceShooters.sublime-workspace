@@ -4,16 +4,160 @@
 		"selected_items":
 		[
 			[
-				"eve",
-				"event_manager"
+				"S",
+				"SPAWNING_LOC"
 			],
 			[
-				"win",
-				"won_spaceship"
+				"Y",
+				"YELLOW_HEALTH_RECT"
+			],
+			[
+				"O",
+				"Outro_Screen"
+			],
+			[
+				"M",
+				"Main_Screen"
+			],
+			[
+				"res",
+				"restart_mechanics"
+			],
+			[
+				"mai",
+				"main_screen"
+			],
+			[
+				"mainc",
+				"main_screen"
+			],
+			[
+				"CHA",
+				"CHANGE_TO_MAIN"
+			],
+			[
+				"s",
+				"signal"
+			],
+			[
+				"is",
+				"is_image"
+			],
+			[
+				"RE",
+				"RESTART_BUTTON"
+			],
+			[
+				"R",
+				"RESTART_BUTTON"
+			],
+			[
+				"se",
+				"set_text_color"
+			],
+			[
+				"te",
+				"text_color"
+			],
+			[
+				"e",
+				"events"
+			],
+			[
+				"check",
+				"check_click"
+			],
+			[
+				"B",
+				"BUTTON_RECT"
+			],
+			[
+				"__",
+				"__init__"
+			],
+			[
+				"T",
+				"True"
+			],
+			[
+				"RES",
+				"RESTART_BUTTON"
+			],
+			[
+				"new",
+				"new_font"
+			],
+			[
+				"Butt",
+				"Button"
+			],
+			[
+				"Ga",
+				"GAME_FONT"
+			],
+			[
+				"CL",
+				"CLICK_SOUND"
+			],
+			[
+				"get_",
+				"get_pressed"
+			],
+			[
+				"get",
+				"get_pressed"
+			],
+			[
+				"BORDER",
+				"BORDER_RECT"
+			],
+			[
+				"col",
+				"collidepoint"
+			],
+			[
+				"evn",
+				"events"
+			],
+			[
+				"chec",
+				"check_hover_and_click"
+			],
+			[
+				"BO",
+				"BORDER"
+			],
+			[
+				"to",
+				"topleft"
 			],
 			[
 				"C",
-				"CHANGE_TO_OUTRO"
+				"CLICK_SOUND"
+			],
+			[
+				"win",
+				"win_message"
+			],
+			[
+				"WI",
+				"WIN_MESSAGE"
+			],
+			[
+				"OU",
+				"Outro_Screen"
+			],
+			[
+				"WIN",
+				"WIN_RECT"
+			],
+			[
+				"r",
+				"run"
+			],
+			[
+				"eve",
+				"event_manager"
 			],
 			[
 				"pos",
@@ -24,36 +168,16 @@
 				"Main_Screen"
 			],
 			[
-				"mai",
-				"main_screen"
-			],
-			[
-				"__",
-				"__init__"
-			],
-			[
 				"cha",
 				"changing_current_screen"
-			],
-			[
-				"B",
-				"BORDER"
 			],
 			[
 				"curt",
 				"current_screen"
 			],
 			[
-				"e",
-				"events"
-			],
-			[
 				"Main",
 				"Main_Screen"
-			],
-			[
-				"get",
-				"get"
 			],
 			[
 				"upda",
@@ -62,10 +186,6 @@
 			[
 				"dr",
 				"draw_and_display"
-			],
-			[
-				"s",
-				"screen"
 			],
 			[
 				"ma",
@@ -108,20 +228,12 @@
 				"SPAWN_SOUND"
 			],
 			[
-				"O",
-				"OG_VELOCITY"
-			],
-			[
 				"OG",
 				"OG_MAX_BULLETS"
 			],
 			[
 				"de",
 				"deactivate"
-			],
-			[
-				"T",
-				"Timer"
 			],
 			[
 				"m",
@@ -156,14 +268,6 @@
 				"max_bullets"
 			],
 			[
-				"Y",
-				"YELLOW_SPACESHIP"
-			],
-			[
-				"is",
-				"is_claiming"
-			],
-			[
 				"t",
 				"type"
 			],
@@ -172,28 +276,8 @@
 				"spritecollide"
 			],
 			[
-				"R",
-				"RED_SPACESHIP"
-			],
-			[
-				"col",
-				"colliderect"
-			],
-			[
-				"to",
-				"topleft"
-			],
-			[
-				"check",
-				"checking_overlaps"
-			],
-			[
 				"W",
 				"WIDTH"
-			],
-			[
-				"S",
-				"SPAWN_POWERUP_RED"
 			],
 			[
 				"Pow",
@@ -204,20 +288,12 @@
 				"Group"
 			],
 			[
-				"M",
-				"MOVE_SOUND"
-			],
-			[
 				"D",
 				"DEAD_SOUND"
 			],
 			[
 				"ro",
 				"rotate"
-			],
-			[
-				"WIN",
-				"WIN_RECT"
 			],
 			[
 				"Yell",
@@ -242,10 +318,6 @@
 			[
 				"wi",
 				"wining_text"
-			],
-			[
-				"RE",
-				"RED_HEALTH"
 			],
 			[
 				"HE",
@@ -376,10 +448,6 @@
 				"screen_state"
 			],
 			[
-				"res",
-				"restart_changes"
-			],
-			[
 				"ki",
 				"kill"
 			],
@@ -446,74 +514,6 @@
 			[
 				"play",
 				"player_rect"
-			],
-			[
-				"playe",
-				"player_surf"
-			],
-			[
-				"PLA",
-				"PLAYER_WALK"
-			],
-			[
-				"ob",
-				"obstacle_rects_list"
-			],
-			[
-				"enme",
-				"enemies_list"
-			],
-			[
-				"obsta",
-				"obstacle_rect"
-			],
-			[
-				"enem",
-				"enemies_list"
-			],
-			[
-				"obstacle",
-				"obstacle_rect"
-			],
-			[
-				"eme",
-				"enemies_list"
-			],
-			[
-				"F",
-				"FLY_SURF"
-			],
-			[
-				"obe",
-				"obstacle_rect"
-			],
-			[
-				"if",
-				"if\tIf Condition"
-			],
-			[
-				"enemi",
-				"enemies_list"
-			],
-			[
-				"en",
-				"enemies_list"
-			],
-			[
-				"obs",
-				"obstacle_rects_list"
-			],
-			[
-				"KEY",
-				"KEYUP"
-			],
-			[
-				"SCO",
-				"SCORE_DISPLAY"
-			],
-			[
-				"GAME",
-				"GAME_TITLE"
 			]
 		]
 	},
@@ -564,11 +564,11 @@
 		"selected_items":
 		[
 			[
-				"py",
-				"Set Syntax: Python"
+				"sublimemer",
+				"Sublime Merge: Open Repository"
 			],
 			[
-				"pyh",
+				"pyt",
 				"Set Syntax: Python"
 			],
 			[
@@ -576,7 +576,11 @@
 				"Set Syntax: Python"
 			],
 			[
-				"pyt",
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"pyh",
 				"Set Syntax: Python"
 			],
 			[
@@ -661,14 +665,16 @@
 	"file_history":
 	[
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Buttons.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Test.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Test.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Timers.py",
 		"/C/Users/TOSHIBA/Downloads/2D-Tank-Game-master/2D_Tank_Game.py",
 		"/C/Users/TOSHIBA/Desktop/Test.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/CLASSES.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Imports/main screen.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Intro to pygame 2.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Sublime Project/SpaceShooters.sublime-project",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Timers.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame/Intro to pygame.py",
 		"/C/Users/TOSHIBA/Desktop/UltimatePygameIntro-main/runner_class only.py",
 		"/C/Users/TOSHIBA/Desktop/UltimatePygameIntro-main/runner_video.py",
@@ -716,6 +722,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"button_rect",
+			"rect",
+			"5",
+			"TITLE_FONT",
 			"BORDER"
 		],
 		"highlight": true,
@@ -724,6 +734,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"BUTTON_RECT",
+			"button_rect",
+			"BORDER_WIDTH",
 			"self.BORDER"
 		],
 		"reverse": false,
@@ -779,7 +792,7 @@
 	},
 	"output.exec":
 	{
-		"height": 162.0
+		"height": 126.0
 	},
 	"output.find_results":
 	{
@@ -835,7 +848,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 213.0,
+	"side_bar_width": 232.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

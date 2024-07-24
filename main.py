@@ -1,14 +1,23 @@
 """
 	NOTE:
+
+		REMEMBER: 1. SAVE/CLOSE THE FILES BEFORE COMMITING
+				  2. I AM UPLOADING THIS GAME TO ITCH.IO (AS THIS IS MY FIRST WEALTH THROUGH CODE-LEVERAGE)
 		
+		TO DO:
+			Adding the Outro Screen..
+				1. Creating a Button class common for both intro and outro screen! (completed)
+
+				.check the game for running to debug if need to.. (checked)
 		
-	
 """
 
 import pygame
 import os
+
 from random import randint, choice
 from Timers import Timer
+from Buttons import Button
 
 pygame.init()
 
@@ -101,7 +110,7 @@ class SpaceShip(pygame.sprite.Sprite):
 				self.health -= 1
 				self.HIT_SOUND.play()
 
-	def update(self, Red_bullets, Yellow_bullets, game_state):
+	def update(self, Red_bullets, Yellow_bullets, game_state, SPAWNING_LOC):
 		if game_state == "playing":
 			self.movement()
 			self.checking_collision(Red_bullets, Yellow_bullets)
@@ -292,6 +301,8 @@ class Power_Up(pygame.sprite.Sprite):
 
 # Signals
 CHANGE_TO_OUTRO = pygame.event.custom_type()
+CHANGE_TO_MAIN = pygame.event.custom_type()
+CHANGE_TO_INTRO = pygame.event.custom_type()
 
 
 
@@ -299,18 +310,25 @@ class Screen():
 
 	def __init__(self):
 		self.run = True
+		self.events = None
 
-	def event_manager(self, events):
-		pass
+	def event_manager(self):
+		
+		for event in self.events:
+
+			if event.type == pygame.QUIT:
+				self.run = False
 
 	def changes(self):
 		pass
 
 	def draw_and_display(self):
-		pass
+		pygame.display.update()
 
 	def update(self, events):
-		self.event_manager(events)
+		self.events = events
+
+		self.event_manager()
 		self.changes()
 		self.draw_and_display()
 
@@ -320,6 +338,7 @@ class Main_Screen(Screen):
 		super().__init__()
 
 		self.run = True
+		self.events = None
 
 		# Sounds
 		self.FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
@@ -331,15 +350,13 @@ class Main_Screen(Screen):
 		self.SPAWN_POWERUP_YELLOW = pygame.event.custom_type()
 
 		# Font
-		self.HEALTH_FONT = pygame.font.SysFont("comicsans", 30)
-		self.WIN_FONT = pygame.font.SysFont("comicsans", 100)
-		self.TITLE_FONT = pygame.font.SysFont("fixedsys", 50)
+		self.HEALTH_FONT = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 100)
 
 		# Border
 		self.BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
 
 		# Spaceships
-		self.SPAWNING_LOC = [ ((WIDTH//2)-300, HEIGHT//2), ((WIDTH//2)+300 , HEIGHT//2) ] # For Center Argument 
+		self.SPAWNING_LOC = [ ((WIDTH//2)-250, HEIGHT//2), ((WIDTH//2)+250 , HEIGHT//2) ] # For Center Argument 
 
 		self.YELLOW_SPACESHIP = SpaceShip(pygame.transform.rotate(pygame.image.load(os.path.join("Assets", "spaceship_yellow.png")), 90), self.SPAWNING_LOC[0], "yellow", self.BORDER)
 		self.YELLOW_SPACESHIP = pygame.sprite.GroupSingle(sprite = self.YELLOW_SPACESHIP)
@@ -356,9 +373,16 @@ class Main_Screen(Screen):
 		self.Power_Ups_Red = pygame.sprite.Group()
 		self.Power_Ups_Yellow = pygame.sprite.Group()
 
-	def event_manager(self, events):
+		# Health
+		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(self.YELLOW_SPACESHIP.sprite.health), True, YELLOW)
+		self.RED_HEALTH = self.HEALTH_FONT.render(str(self.RED_SPACESHIP.sprite.health), True, RED)
 
-		for eve in events:
+		self.RED_HEALTH_RECT = self.RED_HEALTH.get_rect( center = self.SPAWNING_LOC[1])
+		self.YELLOW_HEALTH_RECT = self.YELLOW_HEALTH.get_rect( center = self.SPAWNING_LOC[0])
+
+	def event_manager(self):
+
+		for eve in self.events:
 
 			# Quitting
 			if eve.type == pygame.QUIT:
@@ -375,15 +399,15 @@ class Main_Screen(Screen):
 					self.FIRE_SOUND.play()
 
 			# Spawning Power Ups!
-			# if eve.type == SPAWN_POWERUP_RED:
-			# 	if len(self.Power_Ups_Red.sprites()) < self.MAX_POWERUPS:
-			# 		self.Power_Ups_Red.add(Power_Up("red"))
-			# 		self.SPAWN_SOUND.play()
+			if eve.type == self.SPAWN_POWERUP_RED:
+				if len(self.Power_Ups_Red.sprites()) < self.MAX_POWERUPS:
+					self.Power_Ups_Red.add(Power_Up("red"))
+					self.SPAWN_SOUND.play()
 
-			# if eve.type == SPAWN_POWERUP_YELLOW:
-			# 	if len(self.Power_Ups_Yellow.sprites()) < self.MAX_POWERUPS:
-			# 		self.Power_Ups_Yellow.add(Power_Up("yellow"))
-			# 		self.SPAWN_SOUND.play()
+			if eve.type == self.SPAWN_POWERUP_YELLOW:
+				if len(self.Power_Ups_Yellow.sprites()) < self.MAX_POWERUPS:
+					self.Power_Ups_Yellow.add(Power_Up("yellow"))
+					self.SPAWN_SOUND.play()
 
 	def changes(self):
 
@@ -391,19 +415,19 @@ class Main_Screen(Screen):
 		self.Red_bullets.update()
 		self.Yellow_bullets.update()
 
-		self.RED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing")
-		self.YELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing")
+		self.RED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing", self.SPAWNING_LOC)
+		self.YELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing", self.SPAWNING_LOC)
 
 		self.Power_Ups_Red.update()
 		self.Power_Ups_Yellow.update()
 
 		# checking if anybody wins
-		if RED_SPACESHIP.sprite.health == 0:
-			DEAD_SOUND.play()
+		if self.RED_SPACESHIP.sprite.health == 0:
+			self.DEAD_SOUND.play()
 			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Yellow"}))
 		
-		elif YELLOW_SPACESHIP.sprite.health == 0:
-			DEAD_SOUND.play()
+		elif self.YELLOW_SPACESHIP.sprite.health == 0:
+			self.DEAD_SOUND.play()
 			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Red"}))
 			
 	def draw_and_display(self):
@@ -416,13 +440,11 @@ class Main_Screen(Screen):
 		self.Red_bullets.draw(screen)
 
 		# healths
-		YELLOW_HEALTH = self.HEALTH_FONT.render("Health: "+str(self.YELLOW_SPACESHIP.sprite.health), True, WHITE)
-		RED_HEALTH = self.HEALTH_FONT.render("Health: "+str(self.RED_SPACESHIP.sprite.health), True, WHITE)
+		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(self.YELLOW_SPACESHIP.sprite.health), True, YELLOW)
+		self.RED_HEALTH = self.HEALTH_FONT.render(str(self.RED_SPACESHIP.sprite.health), True, RED)
 
-		RED_HEALTH_RECT = RED_HEALTH.get_rect( topright = (WIDTH-10, 10) ) # For ease the access of positioning
-
-		screen.blit(YELLOW_HEALTH, (10, 10))
-		screen.blit(RED_HEALTH, RED_HEALTH_RECT)
+		screen.blit(self.YELLOW_HEALTH, self.YELLOW_HEALTH_RECT)
+		screen.blit(self.RED_HEALTH, self.RED_HEALTH_RECT)
 
 		# power ups
 		self.Power_Ups_Red.draw(screen)
@@ -436,7 +458,9 @@ class Main_Screen(Screen):
 		pygame.display.update()
 
 	def update(self, events):
-		self.event_manager(events)
+		self.events = events
+
+		self.event_manager()
 		self.changes()
 		self.draw_and_display()
 
@@ -444,46 +468,73 @@ class Main_Screen(Screen):
 # pygame.time.set_timer(SPAWN_POWERUP_YELLOW, randint(8*1000, 20*1000))  # TEST
 
 
+class Outro_Screen(Screen):
+
+	def __init__(self, won_spaceship):
+		super().__init__()
+
+		self.run = True
+		self.events = None
+
+		# Variables
+		self.won_spaceship = won_spaceship
+
+		# Fonts
+		self.WIN_FONT = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 150)
+
+		# Winning message ( Will Update in `changes` func )
+		self.win_message = None
+		self.win_message_rect = None
+
+		# Buttons
+		self.RESTART_BUTTON = Button((200, 350), "Restart", pygame.font.Font(os.path.join("Assets", "Font.ttf"), 50))
+		self.MENU_BUTTON = Button((750,350), "Menu", pygame.font.Font(os.path.join("Assets", "Font.ttf"), 50))
+
+		self.buttons = pygame.sprite.Group(self.RESTART_BUTTON, self.MENU_BUTTON)
+
+	def event_manager(self):
+		
+		for event in self.events:
+
+			if event.type == pygame.QUIT:
+				self.run = False
+
+	def changes(self):
+		
+		# Wining Message
+		self.win_message = self.WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
+		self.win_message_rect = self.win_message.get_rect(center = ( (WIDTH/2 + 12) if self.won_spaceship == "Red" else (WIDTH/2 + 3) , HEIGHT/2 - 100))
+
+		# Buttons
+		self.buttons.update(self.events)
+
+		if self.RESTART_BUTTON.is_clicked:
+			pygame.event.post(pygame.event.Event(CHANGE_TO_MAIN))
+
+		elif self.MENU_BUTTON.is_clicked:
+			pass
 
 
-# Outro Screen
-# def outro(self):
+	def draw_and_display(self):
 
-# 	#drawing the winning message
-# 	WIN = WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
-# 	WIN_RECT = WIN.get_rect(center = (WIDTH/2, HEIGHT/2))
+		# Win Message
+		screen.blit(self.win_message, self.win_message_rect)
 
-# 	screen.blit(WIN, WIN_RECT)
+		# Buttons
+		self.buttons.draw(screen)
+		
+		pygame.display.update()
 
-# 	self.outro_wait.update()
+	def update(self, events):
+		self.events = events
 
-# 	# restart mechanics
-# 	if not self.outro_wait.active:
-
-# 		Red_bullets.empty()
-# 		Yellow_bullets.empty()
-
-# 		RED_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
-# 		YELLOW_SPACESHIP.update(Red_bullets, Yellow_bullets, "restart")
-
-# 		Power_Ups_Red.empty()
-# 		Power_Ups_Yellow.empty()
-
-# 		self.state = "Main Screen"
-
-
-
-	
-
+		self.event_manager()
+		self.changes()
+		self.draw_and_display()
 
 def main():
 
-	intro_screen = None
-	main_screen = Main_Screen()
-	outro_screen = None
-
-	current_screen = main_screen
-	
+	current_screen = Outro_Screen("Red")
 
 	# Game loop
 	while current_screen.run:
@@ -494,7 +545,15 @@ def main():
 
 		# Getting signals to change the current screen!
 		for signal in events:
-			pass
+
+			# Changing to Outro screen			
+			if signal.type == CHANGE_TO_OUTRO:
+				current_screen = Outro_Screen(signal.won_spaceship)
+
+			# Changing to Main screen
+			elif signal.type == CHANGE_TO_MAIN:
+				current_screen = Main_Screen()
+
 
 
 		current_screen.update(events)
