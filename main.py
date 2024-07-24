@@ -110,12 +110,10 @@ class SpaceShip(pygame.sprite.Sprite):
 				self.health -= 1
 				self.HIT_SOUND.play()
 
-	def update(self, Red_bullets, Yellow_bullets, game_state, SPAWNING_LOC):
-		if game_state == "playing":
-			self.movement()
-			self.checking_collision(Red_bullets, Yellow_bullets)
-		else:
-			self.__init__(self.image, SPAWNING_LOC[0] if self.type == "yellow" else SPAWNING_LOC[1], self.type)
+	def update(self, Red_bullets, Yellow_bullets):
+		self.movement()
+		self.checking_collision(Red_bullets, Yellow_bullets)
+		
 
 class Bullet(pygame.sprite.Sprite):
 
@@ -415,8 +413,8 @@ class Main_Screen(Screen):
 		self.Red_bullets.update()
 		self.Yellow_bullets.update()
 
-		self.RED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing", self.SPAWNING_LOC)
-		self.YELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets, "playing", self.SPAWNING_LOC)
+		self.RED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets)
+		self.YELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets)
 
 		self.Power_Ups_Red.update()
 		self.Power_Ups_Yellow.update()
