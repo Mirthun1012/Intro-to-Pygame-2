@@ -1,3 +1,12 @@
+"""
+	Post-Conditions:
+		1. Ensure that the func `activate` get called only one time!
+		2. Check for deactivation in a following way:
+			`if <Timer>.update() == False:
+				<body>`
+		
+"""
+
 from pygame.time import get_ticks
 
 class Timer():
@@ -26,4 +35,5 @@ class Timer():
 			if current_time - self.start_time >= self.duration:
 				self.deactivate()
 
-			return current_time - self.start_time
+			return self.active
+	

@@ -38,7 +38,7 @@ class Power_Up(pygame.sprite.Sprite):
 			self.rect.topleft = (x, y)
 
 			while self.is_overlap():
-				x, y = randint(0, self.BORDER.left-self.size), randint(0, HEIGHT-self.size)
+				x, y = randint(0, BORDER.left-self.size), randint(0, HEIGHT-self.size)
 				self.rect.topleft = (x, y)
 
 		elif self.group == "red":
@@ -131,10 +131,9 @@ class Power_Up(pygame.sprite.Sprite):
 					self.rect = self.image.get_rect( topleft = (WIDTH+5, HEIGHT+5) ) # Hide
 
 	def deactivate(self):
-		self.timers[self.type].update()
-
+		
 		# Deactivating
-		if not self.timers[self.type].active:
+		if not self.timers[self.type].update():
 
 			if self.group == "red":
 

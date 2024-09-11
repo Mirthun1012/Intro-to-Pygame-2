@@ -16,10 +16,11 @@ class SpaceShip(pygame.sprite.Sprite):
 		self.velocity = 3		
 		self.max_bullets = 3
 
-		# For powerups
+		# For powerups and restarting
 		self.OG_HEALTH = 10
 		self.OG_VELOCITY = 3
 		self.OG_MAX_BULLETS = 3
+		self.OG_POSITION = pos
 
 		# For border
 		self.BORDER = BORDER
@@ -73,3 +74,11 @@ class SpaceShip(pygame.sprite.Sprite):
 	def update(self, Red_bullets, Yellow_bullets):
 		self.movement()
 		self.checking_collision(Red_bullets, Yellow_bullets)
+
+	def restart(self, pos):
+		self.health = self.OG_HEALTH
+		self.velocity = self.OG_VELOCITY
+		self.max_bullets = self.OG_MAX_BULLETS
+		self.position = pos
+
+		self.rect = self.image.get_rect(center = self.position)

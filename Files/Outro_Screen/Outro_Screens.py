@@ -41,7 +41,7 @@ class Outro_Screen(Screen):
 	def changes(self):
 		
 		# Wining Message
-		self.win_message = self.WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW)
+		self.win_message = self.WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW, YELLOW if self.won_spaceship == "Red" else RED)
 		self.win_message_rect = self.win_message.get_rect(center = ( (WIDTH/2 + 12) if self.won_spaceship == "Red" else (WIDTH/2 + 3) , HEIGHT/2 - 100))
 
 		# Buttons
@@ -51,7 +51,7 @@ class Outro_Screen(Screen):
 			pygame.event.post(pygame.event.Event(CHANGE_TO_MAIN))
 
 		elif self.MENU_BUTTON.is_clicked:
-			pass
+			pygame.event.post(pygame.event.Event(CHANGE_TO_INTRO))
 
 
 	def draw_and_display(self):

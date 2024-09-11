@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"OG_",
+				"OG_HEALTH"
+			],
+			[
+				"SP",
+				"SPAWNING_LOC"
+			],
+			[
+				"Yellow_",
+				"YELLOW_SPACESHIP"
+			],
+			[
+				"Po",
+				"Power_Ups_Yellow"
+			],
+			[
+				"so",
+				"sound_wait"
+			],
+			[
 				"s",
 				"Sounds"
 			],
@@ -70,10 +90,6 @@
 			[
 				"RE",
 				"RED_SPACESHIP"
-			],
-			[
-				"Po",
-				"Power_Up"
 			],
 			[
 				"Cha",
@@ -300,10 +316,6 @@
 				"activate"
 			],
 			[
-				"SP",
-				"SPAWN_SOUND"
-			],
-			[
 				"OG",
 				"OG_MAX_BULLETS"
 			],
@@ -502,31 +514,11 @@
 			[
 				"pla",
 				"play"
-			],
-			[
-				"SOU",
-				"Sound"
-			],
-			[
-				"scree",
-				"screen_state"
-			],
-			[
-				"ki",
-				"kill"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
-			"settings":
-			{
-				"buffer_size": 1409,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/Rust/Cargo.sublime-build",
 	"build_system_choices":
@@ -752,19 +744,25 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2"
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Outro_Screen"
 	],
 	"file_history":
 	[
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Power_Ups.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screen_Variables.py",
+		"/C/Users/TOSHIBA/Desktop/delete it.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Bullets.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Game_Variables.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/SpaceShips.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Power_Ups.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Timers.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Buttons.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Outro_Screen/Outro_Screens.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Bullets.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screen_Variables.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Game_Variables.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Screens.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/SpaceShips.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main Screen/Main_Screens.py",
@@ -918,38 +916,6 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
-					"selected": true,
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1409,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1080.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"stack_multiselect": false,
-					"type": "text"
-				}
 			]
 		}
 	],

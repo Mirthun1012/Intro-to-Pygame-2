@@ -10,10 +10,11 @@ class Bullet(pygame.sprite.Sprite):
 
 		self.position = position
 		self.bullet_type = bullet_type
+		self.image_address = "Red_Bullet.png" if bullet_type == "red" else "Yellow_Bullet.png"
 
 		self.VELOCITY = 7
 
-		self.image = pygame.image.load(os.path.join("Assets", "Bullet.png")).convert_alpha()
+		self.image = pygame.image.load(os.path.join("Assets", self.image_address)).convert_alpha()
 		self.rect = self.image.get_rect(center = self.position)
 
 	def movement(self):

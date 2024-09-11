@@ -3,7 +3,10 @@ import os
 
 from Files.Buttons import Button
 from Files.Screens import Screen
+from Files.Timers import Timer
+
 from Files.Game_Variables import *
+
 
 
 class Intro_Screen(Screen):
@@ -35,6 +38,9 @@ class Intro_Screen(Screen):
 
 		self.buttons = pygame.sprite.Group(self.Start_Button, self.Exit_Button)
 
+		# Timer
+		self.sound_wait = Timer(500)
+
 	def event_manager(self):
 		
 		for event in self.events:
@@ -47,11 +53,17 @@ class Intro_Screen(Screen):
 		# Buttons
 		self.buttons.update(self.events)
 
+		# Timer
+		if self.sound_wait.update() == False:
+			self.run = False
+
+		
+
 		if self.Start_Button.is_clicked:
 			pygame.event.post(pygame.event.Event(CHANGE_TO_MAIN))
 
-		elif self.Exit_Button.is_clicked:
-			self.run = False
+		elif self.Exit_Button.is_clicked and not self.sound_wait.active:
+			self.sound_wait.activate()
 		
 
 	def draw_and_display(self):

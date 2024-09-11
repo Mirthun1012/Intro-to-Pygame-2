@@ -74,7 +74,7 @@ class Button(sprite.Sprite):
 						self.set_text_color("white")
 
 			# Checking Clicking
-			if event.type == MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos):
+			if event.type == MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos) and not self.is_clicked:
 				if self.img:
 					pass
 				else:

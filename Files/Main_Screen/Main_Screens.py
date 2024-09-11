@@ -48,8 +48,15 @@ class Main_Screen(Screen):
 		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)
 		self.RED_HEALTH = self.HEALTH_FONT.render(str(RED_SPACESHIP.sprite.health), True, RED)
 
-		self.RED_HEALTH_RECT = self.RED_HEALTH.get_rect( center = SPAWNING_LOC[1])
-		self.YELLOW_HEALTH_RECT = self.YELLOW_HEALTH.get_rect( center = SPAWNING_LOC[0])
+		self.RED_HEALTH_RECT = self.RED_HEALTH.get_rect( center = SPAWNING_LOC[1] )
+		self.YELLOW_HEALTH_RECT = self.YELLOW_HEALTH.get_rect( center = SPAWNING_LOC[0] )
+
+		# Restarting Spaceship and Power ups
+		RED_SPACESHIP.sprite.restart(SPAWNING_LOC[1])
+		YELLOW_SPACESHIP.sprite.restart(SPAWNING_LOC[0])
+
+		Power_Ups_Red.empty()
+		Power_Ups_Yellow.empty()
 
 	def event_manager(self):
 
@@ -92,6 +99,10 @@ class Main_Screen(Screen):
 		Power_Ups_Red.update()
 		Power_Ups_Yellow.update()
 
+		# healths
+		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)
+		self.RED_HEALTH = self.HEALTH_FONT.render(str(RED_SPACESHIP.sprite.health), True, RED)
+
 		# checking if anybody wins
 		if RED_SPACESHIP.sprite.health == 0:
 			self.DEAD_SOUND.play()
@@ -111,9 +122,6 @@ class Main_Screen(Screen):
 		self.Red_bullets.draw(self.screen)
 
 		# healths
-		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)
-		self.RED_HEALTH = self.HEALTH_FONT.render(str(RED_SPACESHIP.sprite.health), True, RED)
-
 		self.screen.blit(self.YELLOW_HEALTH, self.YELLOW_HEALTH_RECT)
 		self.screen.blit(self.RED_HEALTH, self.RED_HEALTH_RECT)
 
