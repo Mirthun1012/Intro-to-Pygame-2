@@ -6,9 +6,8 @@
 		
 		TO DO:
 			1. Understanding My Outline of this game!
-			2. Changing the Bullet colors for the ship! (completed)
-			3. Adding the outer rectangler box for outro screen winning title! (completed)
-			4. Update the files in Git-Hub, to make it up-to-date!self.sound_wait.update()
+			2. Update the files in Git-Hub, to make it up-to-date!
+			3. Resolving the health-text-bug in main screen
 		
 """
 

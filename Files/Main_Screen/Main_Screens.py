@@ -21,10 +21,22 @@ class Main_Screen(Screen):
 		self.events = None
 		self.screen = screen
 
+		# Restarting Spaceship and Power ups
+		RED_SPACESHIP.sprite.restart(SPAWNING_LOC[1])
+		YELLOW_SPACESHIP.sprite.restart(SPAWNING_LOC[0])
+
+		Power_Ups_Red.empty()
+		Power_Ups_Yellow.empty()
+
 		# Sounds
 		self.FIRE_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Fire.mp3"))
 		self.DEAD_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Dead.wav"))
 		self.SPAWN_SOUND = pygame.mixer.Sound(os.path.join("Assets", "Sounds", "Spawning Sound.mp3"))
+
+		# BG Music
+		self.BG_MUSIC = pygame.mixer.music.load(os.path.join("Assets", "Musics", "For Main Screen.ogg"))
+		pygame.mixer.music.set_volume(0.3)
+		pygame.mixer.music.play(-1)
 
 		# Timers
 		self.SPAWN_POWERUP_RED = pygame.event.custom_type()
@@ -51,12 +63,7 @@ class Main_Screen(Screen):
 		self.RED_HEALTH_RECT = self.RED_HEALTH.get_rect( center = SPAWNING_LOC[1] )
 		self.YELLOW_HEALTH_RECT = self.YELLOW_HEALTH.get_rect( center = SPAWNING_LOC[0] )
 
-		# Restarting Spaceship and Power ups
-		RED_SPACESHIP.sprite.restart(SPAWNING_LOC[1])
-		YELLOW_SPACESHIP.sprite.restart(SPAWNING_LOC[0])
-
-		Power_Ups_Red.empty()
-		Power_Ups_Yellow.empty()
+		
 
 	def event_manager(self):
 
@@ -106,10 +113,12 @@ class Main_Screen(Screen):
 		# checking if anybody wins
 		if RED_SPACESHIP.sprite.health == 0:
 			self.DEAD_SOUND.play()
+			pygame.mixer.music.unload()
 			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Yellow"}))
 		
 		elif YELLOW_SPACESHIP.sprite.health == 0:
 			self.DEAD_SOUND.play()
+			pygame.mixer.music.unload()
 			pygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {"won_spaceship": "Red"}))
 			
 	def draw_and_display(self):

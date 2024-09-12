@@ -57,8 +57,6 @@ class Intro_Screen(Screen):
 		if self.sound_wait.update() == False:
 			self.run = False
 
-		
-
 		if self.Start_Button.is_clicked:
 			pygame.event.post(pygame.event.Event(CHANGE_TO_MAIN))
 
