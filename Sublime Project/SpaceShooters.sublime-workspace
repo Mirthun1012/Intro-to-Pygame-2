@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"set",
+				"set_volume"
+			],
+			[
+				"B",
+				"BG_MUSIC"
+			],
+			[
 				"OG_",
 				"OG_HEALTH"
 			],
@@ -26,10 +34,6 @@
 			[
 				"s",
 				"Sounds"
-			],
-			[
-				"set",
-				"set_caption"
 			],
 			[
 				"F",
@@ -178,10 +182,6 @@
 			[
 				"check",
 				"check_click"
-			],
-			[
-				"B",
-				"BUTTON_RECT"
 			],
 			[
 				"T",
@@ -520,280 +520,54 @@
 	"buffers":
 	[
 		{
-			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
+			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Space Shooter.py",
 			"settings":
 			{
-				"buffer_size": 1457,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "import pygame\nimport os\n\nfrom random import randint\n\nfrom Files.Screens import Screen\n\nfrom Files.Game_Variables import *\nfrom Files.Main_Screen.Main_Screen_Variables import *\n\nfrom Files.Main_Screen.Bullets import Bullet\nfrom Files.Main_Screen.Power_Ups import Power_Up\n\n\nclass Main_Screen(Screen):\n\n\tdef __init__(self, screen):\n\t\tsuper().__init__(screen)\n\n\t\tself.run = True\n\t\tself.events = None\n\t\tself.screen = screen\n\n\t\t# Sounds\n\t\tself.FIRE_SOUND = pygame.mixer.Sound(os.path.join(\"Assets\", \"Sounds\", \"Fire.mp3\"))\n\t\tself.DEAD_SOUND = pygame.mixer.Sound(os.path.join(\"Assets\", \"Sounds\", \"Dead.wav\"))\n\t\tself.SPAWN_SOUND = pygame.mixer.Sound(os.path.join(\"Assets\", \"Sounds\", \"Spawning Sound.mp3\"))\n\n\t\t# Timers\n\t\tself.SPAWN_POWERUP_RED = pygame.event.custom_type()\n\t\tself.SPAWN_POWERUP_YELLOW = pygame.event.custom_type()\n\n\t\tpygame.time.set_timer(self.SPAWN_POWERUP_RED, randint(8*1000, 20*1000))    \n\t\tpygame.time.set_timer(self.SPAWN_POWERUP_YELLOW, randint(8*1000, 20*1000))\n\n\t\t# Font\n\t\tself.HEALTH_FONT = pygame.font.Font(os.path.join(\"Assets\", \"Font.ttf\"), 100)\n\n\t\t# BG\n\t\tself.BG = pygame.image.load(os.path.join(\"Assets\", \"space.png\")).convert()\n\t\tself.BG = pygame.transform.scale(self.BG, (WIDTH, HEIGHT))\n\n\t\t# Bullets\n\t\tself.Red_bullets = pygame.sprite.Group()\n\t\tself.Yellow_bullets = pygame.sprite.Group()\n\n\t\t# Health\n\t\tself.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)\n\t\tself.RED_HEALTH = self.HEALTH_FONT.render(str(RED_SPACESHIP.sprite.health), True, RED)\n\n\t\tself.RED_HEALTH_RECT = self.RED_HEALTH.get_rect( center = SPAWNING_LOC[1] )\n\t\tself.YELLOW_HEALTH_RECT = self.YELLOW_HEALTH.get_rect( center = SPAWNING_LOC[0] )\n\n\t\t# Restarting Spaceship and Power ups\n\t\tRED_SPACESHIP.sprite.restart(SPAWNING_LOC[1])\n\t\tYELLOW_SPACESHIP.sprite.restart(SPAWNING_LOC[0])\n\n\t\tPower_Ups_Red.empty()\n\t\tPower_Ups_Yellow.empty()\n\n\tdef event_manager(self):\n\n\t\tfor eve in self.events:\n\n\t\t\t# Quitting\n\t\t\tif eve.type == pygame.QUIT:\n\t\t\t\tself.run = False\n\n\t\t\t# Firing!\n\t\t\tif eve.type == pygame.KEYDOWN:\n\t\t\t\tif eve.key == pygame.K_LCTRL and len(self.Yellow_bullets.sprites()) < YELLOW_SPACESHIP.sprite.max_bullets:\n\t\t\t\t\tself.Yellow_bullets.add( Bullet(YELLOW_SPACESHIP.sprite.rect.midright, \"yellow\") )\n\t\t\t\t\tself.FIRE_SOUND.play()\n\n\t\t\t\tif eve.key == pygame.K_RCTRL and len(self.Red_bullets.sprites()) < RED_SPACESHIP.sprite.max_bullets:\n\t\t\t\t\tself.Red_bullets.add( Bullet(RED_SPACESHIP.sprite.rect.midleft, \"red\") )\n\t\t\t\t\tself.FIRE_SOUND.play()\n\n\t\t\t# Spawning Power Ups!\n\t\t\tif eve.type == self.SPAWN_POWERUP_RED:\n\t\t\t\tif len(Power_Ups_Red.sprites()) < MAX_POWERUPS:\n\t\t\t\t\tPower_Ups_Red.add(Power_Up(\"red\"))\n\t\t\t\t\tself.SPAWN_SOUND.play()\n\n\t\t\tif eve.type == self.SPAWN_POWERUP_YELLOW:\n\t\t\t\tif len(Power_Ups_Yellow.sprites()) < MAX_POWERUPS:\n\t\t\t\t\tPower_Ups_Yellow.add(Power_Up(\"yellow\"))\n\t\t\t\t\tself.SPAWN_SOUND.play()\n\n\tdef changes(self):\n\n\t\t# Updates\n\t\tself.Red_bullets.update()\n\t\tself.Yellow_bullets.update()\n\n\t\tRED_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets)\n\t\tYELLOW_SPACESHIP.update(self.Red_bullets, self.Yellow_bullets)\n\n\t\tPower_Ups_Red.update()\n\t\tPower_Ups_Yellow.update()\n\n\t\t# healths\n\t\tself.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)\n\t\tself.RED_HEALTH = self.HEALTH_FONT.render(str(RED_SPACESHIP.sprite.health), True, RED)\n\n\t\t# checking if anybody wins\n\t\tif RED_SPACESHIP.sprite.health == 0:\n\t\t\tself.DEAD_SOUND.play()\n\t\t\tpygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {\"won_spaceship\": \"Yellow\"}))\n\t\t\n\t\telif YELLOW_SPACESHIP.sprite.health == 0:\n\t\t\tself.DEAD_SOUND.play()\n\t\t\tpygame.event.post(pygame.event.Event(CHANGE_TO_OUTRO, {\"won_spaceship\": \"Red\"}))\n\t\t\t\n\tdef draw_and_display(self):\n\t\t# BG\n\t\tself.screen.blit(self.BG, (0,0))\n\t\tpygame.draw.rect(self.screen, BLACK, BORDER)\n\n\t\t# bullets\n\t\tself.Yellow_bullets.draw(self.screen)\n\t\tself.Red_bullets.draw(self.screen)\n\n\t\t# healths\n\t\tself.screen.blit(self.YELLOW_HEALTH, self.YELLOW_HEALTH_RECT)\n\t\tself.screen.blit(self.RED_HEALTH, self.RED_HEALTH_RECT)\n\n\t\t# power ups\n\t\tPower_Ups_Red.draw(self.screen)\n\t\tPower_Ups_Yellow.draw(self.screen)\n\n\t\t# spaceships\n\t\tRED_SPACESHIP.draw(self.screen)\n\t\tYELLOW_SPACESHIP.draw(self.screen)\n\n\t\t# Displaying\n\t\tpygame.display.update()\n\n\tdef update(self, events):\n\t\tself.events = events\n\n\t\tself.event_manager()\n\t\tself.changes()\n\t\tself.draw_and_display()",
-			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
-			"file_size": 4450,
-			"file_write_time": 133705304456392417,
-			"redo_stack":
-			[
-				[
-					62,
-					1,
-					"insert",
-					{
-						"characters": "10"
-					},
-					"AgAAAG0MAAAAAAAAbQwAAAAAAAABAAAAMGwMAAAAAAAAbAwAAAAAAAABAAAAMQ",
-					"AQAAAAAAAAABAAAAbgwAAAAAAABuDAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					61,
-					1,
-					"insert_snippet",
-					{
-						"contents": "\"$0\""
-					},
-					"AQAAAGsMAAAAAAAAawwAAAAAAAACAAAAIiI",
-					"AQAAAAAAAAABAAAAbAwAAAAAAABsDAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					60,
-					1,
-					"left_delete",
-					null,
-					"AQAAAGsMAAAAAAAAiQwAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAawwAAAAAAABrDAAAAAAAAAAAAAAAAPC/"
-				]
-			],
-			"settings":
-			{
-				"buffer_size": 4333,
+				"buffer_size": 1279,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			},
 			"undo_stack":
 			[
 				[
-					4,
-					2,
-					"left_delete",
-					null,
-					"AgAAACYEAAAAAAAAJgQAAAAAAAABAAAAMCUEAAAAAAAAJQQAAAAAAAABAAAAMQ",
-					"AQAAAAAAAAABAAAAJwQAAAAAAAAnBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					5,
-					1,
-					"insert",
-					{
-						"characters": "9"
-					},
-					"AQAAACUEAAAAAAAAJgQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAJQQAAAAAAAAlBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					6,
-					1,
-					"left_delete",
-					null,
-					"AQAAACUEAAAAAAAAJQQAAAAAAAABAAAAOQ",
-					"AQAAAAAAAAABAAAAJgQAAAAAAAAmBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					7,
-					1,
-					"insert",
-					{
-						"characters": "1`"
-					},
-					"AgAAACUEAAAAAAAAJgQAAAAAAAAAAAAAJgQAAAAAAAAnBAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAJQQAAAAAAAAlBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					8,
-					1,
-					"left_delete",
-					null,
-					"AQAAACYEAAAAAAAAJgQAAAAAAAABAAAAYA",
-					"AQAAAAAAAAABAAAAJwQAAAAAAAAnBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					9,
-					1,
-					"insert",
-					{
-						"characters": "0"
-					},
-					"AQAAACYEAAAAAAAAJwQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAJgQAAAAAAAAmBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					15,
-					1,
-					"insert",
-					{
-						"characters": "#"
-					},
-					"AQAAAPADAAAAAAAA8QMAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA8AMAAAAAAADwAwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					16,
+					3,
 					1,
 					"insert",
 					{
 						"characters": " "
 					},
-					"AQAAAPEDAAAAAAAA8gMAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA8QMAAAAAAADxAwAAAAAAAAAAAAAAAPC/"
+					"AQAAAPYAAAAAAAAA9wAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA9gAAAAAAAAD2AAAAAAAAAAAAAAAAAPC/"
 				],
 				[
-					18,
+					4,
 					1,
-					"insert",
+					"insert_snippet",
 					{
-						"characters": "pygame.fon"
+						"contents": "($0)"
 					},
-					"CgAAAPADAAAAAAAA8QMAAAAAAAAAAAAA8QMAAAAAAADyAwAAAAAAAAAAAADyAwAAAAAAAPMDAAAAAAAAAAAAAPMDAAAAAAAA9AMAAAAAAAAAAAAA9AMAAAAAAAD1AwAAAAAAAAAAAAD1AwAAAAAAAPYDAAAAAAAAAAAAAPYDAAAAAAAA9wMAAAAAAAAAAAAA9wMAAAAAAAD4AwAAAAAAAAAAAAD4AwAAAAAAAPkDAAAAAAAAAAAAAPkDAAAAAAAA+gMAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA8AMAAAAAAADwAwAAAAAAAAAAAAAAAPC/"
+					"AQAAAPcAAAAAAAAA+QAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA9wAAAAAAAAD3AAAAAAAAAAAAAAAAAPC/"
 				],
 				[
-					19,
-					1,
-					"insert",
-					{
-						"characters": "t.Sys"
-					},
-					"BQAAAPoDAAAAAAAA+wMAAAAAAAAAAAAA+wMAAAAAAAD8AwAAAAAAAAAAAAD8AwAAAAAAAP0DAAAAAAAAAAAAAP0DAAAAAAAA/gMAAAAAAAAAAAAA/gMAAAAAAAD/AwAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA+gMAAAAAAAD6AwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					20,
-					1,
-					"insert_completion",
-					{
-						"completion": "pygame.font.SysFont(${1:name}, ${2:size}, ${3:bold=False}, ${4:italic=False})",
-						"format": "snippet",
-						"keep_prefix": false,
-						"must_insert": false,
-						"trigger": "SysFont"
-					},
-					"AgAAAPwDAAAAAAAA/AMAAAAAAAADAAAAU3lz/AMAAAAAAAA1BAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA/wMAAAAAAAD/AwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					21,
-					1,
-					"left_delete",
-					null,
-					"AQAAABAEAAAAAAAAEAQAAAAAAAAEAAAAbmFtZQ",
-					"AQAAAAAAAAABAAAAEAQAAAAAAAAUBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					22,
-					1,
-					"insert",
-					{
-						"characters": "are"
-					},
-					"AwAAABAEAAAAAAAAEQQAAAAAAAAAAAAAEQQAAAAAAAASBAAAAAAAAAAAAAASBAAAAAAAABMEAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAEAQAAAAAAAAQBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					23,
-					2,
-					"left_delete",
-					null,
-					"AgAAABIEAAAAAAAAEgQAAAAAAAABAAAAZREEAAAAAAAAEQQAAAAAAAABAAAAcg",
-					"AQAAAAAAAAABAAAAEwQAAAAAAAATBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					24,
-					1,
-					"insert",
-					{
-						"characters": "erial"
-					},
-					"BQAAABEEAAAAAAAAEgQAAAAAAAAAAAAAEgQAAAAAAAATBAAAAAAAAAAAAAATBAAAAAAAABQEAAAAAAAAAAAAABQEAAAAAAAAFQQAAAAAAAAAAAAAFQQAAAAAAAAWBAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAEQQAAAAAAAARBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					25,
 					5,
-					"left_delete",
-					null,
-					"BQAAABUEAAAAAAAAFQQAAAAAAAABAAAAbBQEAAAAAAAAFAQAAAAAAAABAAAAYRMEAAAAAAAAEwQAAAAAAAABAAAAaRIEAAAAAAAAEgQAAAAAAAABAAAAchEEAAAAAAAAEQQAAAAAAAABAAAAZQ",
-					"AQAAAAAAAAABAAAAFgQAAAAAAAAWBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					26,
 					1,
 					"insert",
 					{
-						"characters": "rial"
+						"characters": "compl"
 					},
-					"BAAAABEEAAAAAAAAEgQAAAAAAAAAAAAAEgQAAAAAAAATBAAAAAAAAAAAAAATBAAAAAAAABQEAAAAAAAAAAAAABQEAAAAAAAAFQQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAEQQAAAAAAAARBAAAAAAAAAAAAAAAAPC/"
+					"BQAAAPgAAAAAAAAA+QAAAAAAAAAAAAAA+QAAAAAAAAD6AAAAAAAAAAAAAAD6AAAAAAAAAPsAAAAAAAAAAAAAAPsAAAAAAAAA/AAAAAAAAAAAAAAA/AAAAAAAAAD9AAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA+AAAAAAAAAD4AAAAAAAAAAAAAAAAAPC/"
 				],
 				[
-					32,
-					1,
-					"left_delete",
-					null,
-					"AQAAABcEAAAAAAAAFwQAAAAAAAAEAAAAc2l6ZQ",
-					"AQAAAAAAAAABAAAAFwQAAAAAAAAbBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					33,
-					1,
-					"insert",
-					{
-						"characters": "50"
-					},
-					"AgAAABcEAAAAAAAAGAQAAAAAAAAAAAAAGAQAAAAAAAAZBAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAFwQAAAAAAAAXBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					38,
-					1,
-					"left_delete",
-					null,
-					"AQAAAPwDAAAAAAAA/AMAAAAAAAAGAAAAcHlnYW1l",
-					"AQAAAAAAAAABAAAA/AMAAAAAAAACBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					39,
 					6,
-					"right_delete",
-					null,
-					"BgAAAPwDAAAAAAAA/AMAAAAAAAABAAAALvwDAAAAAAAA/AMAAAAAAAABAAAAZvwDAAAAAAAA/AMAAAAAAAABAAAAb/wDAAAAAAAA/AMAAAAAAAABAAAAbvwDAAAAAAAA/AMAAAAAAAABAAAAdPwDAAAAAAAA/AMAAAAAAAABAAAALg",
-					"AQAAAAAAAAABAAAA/AMAAAAAAAD8AwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					43,
 					1,
 					"insert",
 					{
-						"characters": "\""
+						"characters": "eted"
 					},
-					"AQAAAAQEAAAAAAAABQQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAABAQAAAAAAAAEBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					45,
-					1,
-					"insert",
-					{
-						"characters": "\""
-					},
-					"AQAAAAoEAAAAAAAACwQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAACgQAAAAAAAAKBAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					48,
-					2,
-					"left_delete",
-					null,
-					"AgAAAPADAAAAAAAA8AMAAAAAAAA7AAAAcHlnYW1lLmZvbnQuU3lzRm9udCgiYXJpYWwiLCA1MCwgYm9sZD1GYWxzZSwgaXRhbGljPUZhbHNlKSPvAwAAAAAAAO8DAAAAAAAAAQAAACA",
-					"AQAAAAAAAAABAAAA8AMAAAAAAAArBAAAAAAAAAAAAAAAAPC/"
+					"BAAAAP0AAAAAAAAA/gAAAAAAAAAAAAAA/gAAAAAAAAD/AAAAAAAAAAAAAAD/AAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAQEAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA/QAAAAAAAAD9AAAAAAAAAAAAAAAAAPC/"
 				]
 			]
 		}
@@ -1022,19 +796,16 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Outro_Screen"
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2"
 	],
 	"file_history":
 	[
-		"/C/Users/TOSHIBA/Desktop/delete it.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
+		"/C/Users/TOSHIBA/Desktop/delete it.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/SpaceShips.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Power_Ups.py",
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Timers.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Buttons.py",
 		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Outro_Screen/Outro_Screens.py",
@@ -1196,19 +967,20 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/main.py",
+					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Space Shooter.py",
+					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1457,
+						"buffer_size": 1279,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								257,
+								257
 							]
 						],
 						"settings":
@@ -1219,38 +991,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
-					"selected": true,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3543,
-								3543
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1581.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
