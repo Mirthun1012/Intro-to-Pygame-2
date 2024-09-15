@@ -49,7 +49,7 @@ class Main_Screen(Screen):
 		self.HEALTH_FONT = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 100)
 
 		# BG
-		self.BG = pygame.image.load(os.path.join("Assets", "space.png")).convert()
+		self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert()
 		self.BG = pygame.transform.scale(self.BG, (WIDTH, HEIGHT))
 
 		# Bullets

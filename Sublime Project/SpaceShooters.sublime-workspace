@@ -537,7 +537,7 @@
 						"characters": " "
 					},
 					"AQAAAPYAAAAAAAAA9wAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA9gAAAAAAAAD2AAAAAAAAAAAAAAAAAPC/"
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAD2AAAAAAAAAPYAAAAAAAAAAAAAAAAA8L8"
 				],
 				[
 					4,
@@ -547,7 +547,7 @@
 						"contents": "($0)"
 					},
 					"AQAAAPcAAAAAAAAA+QAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA9wAAAAAAAAD3AAAAAAAAAAAAAAAAAPC/"
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAD3AAAAAAAAAPcAAAAAAAAAAAAAAAAA8L8"
 				],
 				[
 					5,
@@ -557,7 +557,7 @@
 						"characters": "compl"
 					},
 					"BQAAAPgAAAAAAAAA+QAAAAAAAAAAAAAA+QAAAAAAAAD6AAAAAAAAAAAAAAD6AAAAAAAAAPsAAAAAAAAAAAAAAPsAAAAAAAAA/AAAAAAAAAAAAAAA/AAAAAAAAAD9AAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA+AAAAAAAAAD4AAAAAAAAAAAAAAAAAPC/"
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAD4AAAAAAAAAPgAAAAAAAAAAAAAAAAA8L8"
 				],
 				[
 					6,
@@ -567,7 +567,101 @@
 						"characters": "eted"
 					},
 					"BAAAAP0AAAAAAAAA/gAAAAAAAAAAAAAA/gAAAAAAAAD/AAAAAAAAAAAAAAD/AAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAQEAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA/QAAAAAAAAD9AAAAAAAAAAAAAAAAAPC/"
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAD9AAAAAAAAAP0AAAAAAAAAAAAAAAAA8L8"
+				]
+			]
+		},
+		{
+			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
+			"settings":
+			{
+				"buffer_size": 4579,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"left_delete",
+					null,
+					"AQAAAOEFAAAAAAAA4QUAAAAAAAADAAAAcG5n",
+					"AQAAAAAAAAABAAAA4QUAAAAAAADkBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"insert",
+					{
+						"characters": "jpeg"
+					},
+					"BAAAAOEFAAAAAAAA4gUAAAAAAAAAAAAA4gUAAAAAAADjBQAAAAAAAAAAAADjBQAAAAAAAOQFAAAAAAAAAAAAAOQFAAAAAAAA5QUAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA4QUAAAAAAADhBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					1,
+					"left_delete",
+					null,
+					"AQAAAOMFAAAAAAAA4wUAAAAAAAABAAAAZQ",
+					"AQAAAAAAAAABAAAA5AUAAAAAAADkBQAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
+			"settings":
+			{
+				"buffer_size": 2238,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"left_delete",
+					null,
+					"AQAAAIIBAAAAAAAAggEAAAAAAAADAAAAcG5n",
+					"AQAAAAAAAAABAAAAggEAAAAAAACFAQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"insert",
+					{
+						"characters": "jpef"
+					},
+					"BAAAAIIBAAAAAAAAgwEAAAAAAAAAAAAAgwEAAAAAAACEAQAAAAAAAAAAAACEAQAAAAAAAIUBAAAAAAAAAAAAAIUBAAAAAAAAhgEAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAggEAAAAAAACCAQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					1,
+					"left_delete",
+					null,
+					"AQAAAIUBAAAAAAAAhQEAAAAAAAABAAAAZg",
+					"AQAAAAAAAAABAAAAhgEAAAAAAACGAQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					1,
+					"insert",
+					{
+						"characters": "g"
+					},
+					"AQAAAIUBAAAAAAAAhgEAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAhQEAAAAAAACFAQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"left_delete",
+					null,
+					"AQAAAIQBAAAAAAAAhAEAAAAAAAABAAAAZQ",
+					"AQAAAAAAAAABAAAAhQEAAAAAAACFAQAAAAAAAAAAAAAAAPC/"
 				]
 			]
 		}
@@ -796,7 +890,11 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2"
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Outro_Screen",
+		"/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Sublime Project"
 	],
 	"file_history":
 	[
@@ -968,7 +1066,6 @@
 				{
 					"buffer": 0,
 					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Space Shooter.py",
-					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
@@ -990,10 +1087,73 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Main_Screen/Main_Screens.py",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1507,
+								1507
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2160.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/E/Mirthun file/Programming/Python/Tutorial/Pygame/Intro to pygame 2/Files/Intro_Screen/Intro_Screens.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2238,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								388,
+								388
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"stack_multiselect": false,
 					"type": "text"
 				}

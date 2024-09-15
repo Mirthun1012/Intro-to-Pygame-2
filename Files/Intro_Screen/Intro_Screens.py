@@ -19,7 +19,7 @@ class Intro_Screen(Screen):
 		self.screen = screen
 
 		# Back Ground
-		self.BG = pygame.image.load(os.path.join("Assets", "space.png")).convert()  
+		self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert()  
 		self.BG = pygame.transform.scale(self.BG, (WIDTH, HEIGHT))
 
 		# Title
@@ -40,6 +40,13 @@ class Intro_Screen(Screen):
 
 		# Timer
 		self.sound_wait = Timer(500)
+
+		# Bliting one time
+		self.screen.blit(self.BG, (0, 0))
+			# Title
+		self.screen.blit(self.S, self.S_RECT)
+		self.screen.blit(self.space, self.SPACE_RECT)
+		self.screen.blit(self.shooters, self.SHOOTERS_RECT)
 
 	def event_manager(self):
 		
@@ -65,13 +72,6 @@ class Intro_Screen(Screen):
 		
 
 	def draw_and_display(self):
-
-		self.screen.blit(self.BG, (0, 0))
-
-		# Title
-		self.screen.blit(self.S, self.S_RECT)
-		self.screen.blit(self.space, self.SPACE_RECT)
-		self.screen.blit(self.shooters, self.SHOOTERS_RECT)
 
 		self.buttons.draw(self.screen)
 

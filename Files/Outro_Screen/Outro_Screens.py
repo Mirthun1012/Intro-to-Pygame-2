@@ -21,15 +21,18 @@ class Outro_Screen(Screen):
 		# Fonts
 		self.WIN_FONT = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 150)
 
-		# Winning message ( Will Update in `changes` func )
-		self.win_message = None
-		self.win_message_rect = None
+		# Wining Message
+		self.win_message = self.WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW, YELLOW if self.won_spaceship == "Red" else RED)
+		self.win_message_rect = self.win_message.get_rect(center = ( (WIDTH/2 + 12) if self.won_spaceship == "Red" else (WIDTH/2 + 3) , HEIGHT/2 - 100))
 
 		# Buttons
 		self.RESTART_BUTTON = Button((450, 291), "Restart", pygame.font.Font(os.path.join("Assets", "Font.ttf"), 50))
 		self.MENU_BUTTON = Button((450, 291+116), "Menu", pygame.font.Font(os.path.join("Assets", "Font.ttf"), 50))
 
 		self.buttons = pygame.sprite.Group(self.RESTART_BUTTON, self.MENU_BUTTON)
+
+		# Bliting one time
+		self.screen.blit(self.win_message, self.win_message_rect)
 
 	def event_manager(self):
 		
@@ -39,10 +42,6 @@ class Outro_Screen(Screen):
 				self.run = False
 
 	def changes(self):
-		
-		# Wining Message
-		self.win_message = self.WIN_FONT.render(self.won_spaceship+" Wins", True, RED if self.won_spaceship == "Red" else YELLOW, YELLOW if self.won_spaceship == "Red" else RED)
-		self.win_message_rect = self.win_message.get_rect(center = ( (WIDTH/2 + 12) if self.won_spaceship == "Red" else (WIDTH/2 + 3) , HEIGHT/2 - 100))
 
 		# Buttons
 		self.buttons.update(self.events)
@@ -55,9 +54,6 @@ class Outro_Screen(Screen):
 
 
 	def draw_and_display(self):
-
-		# Win Message
-		self.screen.blit(self.win_message, self.win_message_rect)
 
 		# Buttons
 		self.buttons.draw(self.screen)
