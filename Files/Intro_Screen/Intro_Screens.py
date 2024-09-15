@@ -19,8 +19,7 @@ class Intro_Screen(Screen):
 		self.screen = screen
 
 		# Back Ground
-		self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert()  
-		self.BG = pygame.transform.scale(self.BG, (WIDTH, HEIGHT))
+		self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert()
 
 		# Title
 		self.S = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 300).render("S", False, WHITE)

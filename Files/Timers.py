@@ -4,6 +4,7 @@
 		2. Check for deactivation in a following way:
 			`if <Timer>.update() == False:
 				<body>`
+			(When using this, The `False` will be emitated only one time next it starts to emit `None`)
 		
 """
 

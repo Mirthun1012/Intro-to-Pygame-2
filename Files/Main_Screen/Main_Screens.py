@@ -4,6 +4,7 @@ import os
 from random import randint
 
 from Files.Screens import Screen
+from Files.Timers import Timer
 
 from Files.Game_Variables import *
 from Files.Main_Screen.Main_Screen_Variables import *
@@ -45,12 +46,13 @@ class Main_Screen(Screen):
 		pygame.time.set_timer(self.SPAWN_POWERUP_RED, randint(8*1000, 20*1000))    
 		pygame.time.set_timer(self.SPAWN_POWERUP_YELLOW, randint(8*1000, 20*1000))
 
+		self.CHANGE_BG = Timer(7*1000, True)
+
 		# Font
 		self.HEALTH_FONT = pygame.font.Font(os.path.join("Assets", "Font.ttf"), 100)
 
 		# BG
-		self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert()
-		self.BG = pygame.transform.scale(self.BG, (WIDTH, HEIGHT))
+		self.BG = pygame.image.load(os.path.join("Assets", "controls.jpg")).convert()
 
 		# Bullets
 		self.Red_bullets = pygame.sprite.Group()
@@ -105,6 +107,10 @@ class Main_Screen(Screen):
 
 		Power_Ups_Red.update()
 		Power_Ups_Yellow.update()
+
+		# Timer
+		if self.CHANGE_BG.update() == False:
+			self.BG = pygame.image.load(os.path.join("Assets", "space.jpg")).convert() 
 
 		# healths
 		self.YELLOW_HEALTH = self.HEALTH_FONT.render(str(YELLOW_SPACESHIP.sprite.health), True, YELLOW)

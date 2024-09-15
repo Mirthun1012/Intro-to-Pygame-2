@@ -5,9 +5,7 @@
 				  2. I AM UPLOADING THIS GAME TO ITCH.IO (AS THIS IS MY FIRST WEALTH THROUGH CODE-LEVERAGE)
 		
 		TO DO:
-			1. Create the game logo! (completed)
-			2. Exporting it into .exe file (completed)
-			
+			1. Add a control info to the main screen 			
 		
 """
 
